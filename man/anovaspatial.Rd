@@ -22,8 +22,7 @@ and the response variable is the logged fold-change.}
               values chosen for \code{xN} and \code{yN}  should  divide the array columns and rows approx. equally.
               The null hypothesis is the equality of mean(\code{M}) of the different levels. 
               The model formula used by \code{anovaspatial} is \eqn{M \sim  (A - 1)}{M ~ (A - 1)} 
-            (without an intercept term)}.
-          
+            (without an intercept term).}          
 \value{The return value is a list of summary statistics of the fitted  model as produced by \code{summary.lm}.  
        For example, the squared multiple correlation coefficient \eqn{R^{2}}{R-square} equals the proportion 
        of the variation of \code{M} that can be related to the spot location (based on the chosen

@@ -13,9 +13,11 @@ fgbg.visu <- function (obj)
         tmp <- v2m(log2(Rb[, i]), Nsr = maNsr(obj), Nsc = maNsc(obj), 
             Ngc = maNgc(obj), Ngr = maNgr(obj), color.lim = c(0, 
                 max(log2(Rb[, i]))), main = "log2(Bg)", visu = TRUE)
-        tmp <- v2m(log2(Rf[, i] - Rb[, i]), Nsr = maNsr(obj), 
+        tmp <- Rf[, i] - Rb[, i]; tmp[tmp <= 0] <- NaN ; 
+        tmp <- v2m(log2(tmp), Nsr = maNsr(obj), 
             Nsc = maNsc(obj), Ngc = maNgc(obj), Ngr = maNgr(obj), 
-            color.lim = c(0, max(log2(Rf[, i] - Rb[, i]))), main = "log2(Fg-Bg)", 
+            color.lim = c(- log2(max(tmp,na.rm=TRUE)), log2(max(tmp,na.rm=TRUE))),
+            main = "log2(Fg-Bg)", 
             visu = TRUE)
         tmp <- v2m(-log2(Gf[, i]), Nsr = maNsr(obj), Nsc = maNsc(obj), 
             Ngc = maNgc(obj), Ngr = maNgr(obj), color.lim = c(-max(log2(Gf[, 
@@ -23,9 +25,11 @@ fgbg.visu <- function (obj)
         tmp <- v2m(-log2(Gb[, i]), Nsr = maNsr(obj), Nsc = maNsc(obj), 
             Ngc = maNgc(obj), Ngr = maNgr(obj), color.lim = c(-max(log2(Gb[, 
                 i])), 0), main = "log2(Bg)", visu = TRUE)
-        tmp <- v2m(-log2(Gf[, i] - Gb[, i]), Nsr = maNsr(obj), 
+    
+     tmp <- Gf[, i] - Gb[, i]; tmp[tmp <= 0] <- NaN ; 
+       tmp <- v2m(-log2(tmp), Nsr = maNsr(obj), 
             Nsc = maNsc(obj), Ngc = maNgc(obj), Ngr = maNgr(obj), 
-            color.lim = c(-max(log2(Gf[, i] - Gb[, i])), 0), 
+            color.lim = c(max(log2(tmp),na.rm=TRUE),max(log2(tmp),na.rm=TRUE)), 
             main = "log2(Fg-Bg)", visu = TRUE)
         cat("Pause. Press <Enter> to continue...")
         readline()

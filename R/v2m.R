@@ -11,9 +11,11 @@ v2m <- function (V, Ngc, Ngr, Nsc, Nsr, visu = FALSE, color.lim = c(-1,
     tmp <- tmp[, -1]
     cutx <- (Nsc * Ngc)
     smatrix <- tmp[, 1:cutx]
-    for (i in 2:Ngr) {
-        smatrix <- rbind(smatrix, tmp[, ((i - 1) * cutx + 1):(i * 
-            cutx)])
+    if (Ngr > 1){ 
+   	for (i in 2:Ngr) {
+        	smatrix <- rbind(smatrix, tmp[, ((i - 1) * cutx + 1):(i * 
+            	cutx)])
+    	}
     }
     ### VISUALISATION 
     if (visu) {

@@ -11,11 +11,12 @@ mxy.plot <- function (V, Ngc, Ngr, Nsc, Nsr, color.lim = c(-1, 1), xlab = "Colum
     tmp <- tmp[, -1]
     cutx <- (Nsc * Ngc)
     smatrix <- tmp[, 1:cutx]
-    for (i in 2:Ngr) {
-        smatrix <- rbind(smatrix, tmp[, ((i - 1) * cutx + 1):(i * 
-            cutx)])
+    if (Ngr > 1){ 
+    	for (i in 2:Ngr) {
+            smatrix <- rbind(smatrix, tmp[, ((i - 1) * cutx + 1):(i * 
+                             cutx)])
+        }
     }
-
     ### VISUALISATION 
     colo <- c(rgb(0, (100:0)/100, 0), rgb(0, 0, 0), rgb((1:100)/100, 
         g = 0, b = 0))

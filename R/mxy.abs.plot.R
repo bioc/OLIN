@@ -14,9 +14,11 @@ mxy.abs.plot <- function (V, Ngc, Ngr, Nsc, Nsr, color.lim = c(0, 1), color = "r
     tmp <- tmp[, -1]
     cutx <- (Nsc * Ngc)
     smatrix <- tmp[, 1:cutx]
-    for (i in 2:Ngr) {
-        smatrix <- rbind(smatrix, tmp[, ((i - 1) * cutx + 1):(i * 
-            cutx)])
+    if (Ngr > 1){    	
+   	 for (i in 2:Ngr) {
+        	smatrix <- rbind(smatrix, tmp[, ((i - 1) * cutx + 1):(i * 
+            	cutx)])
+    	}
     }
 
     #### COLOR PALETTE

@@ -35,7 +35,7 @@ mxy2.plot <- function (V, X, Y, Ngc, Ngr, Nsc, Nsr, color.lim = c(-1, 1),
         for (k in 2:Nsr) {
             tempy[(l - 1) * (Nsr + 1) + k] <- 0.5 * (Y[temp2[(k - 
                 1) + Nsr * (l - 1)]] + Y[temp2[k + Nsr * (l - 
-                1)]])
+	                1)]])
         }
         tempy[l * (Nsr + 1)] <- Y[temp2[l * Nsr]] + printdiff
     }
@@ -52,9 +52,11 @@ mxy2.plot <- function (V, X, Y, Ngc, Ngr, Nsc, Nsr, color.lim = c(-1, 1),
     temp <- rbind(matrix(0, ncol = tempdim[2]), temp)
     cutx <- (Nsc * Ngc) + Ngc
     smatrix <- temp[, 1:cutx]
-    for (i in 2:Ngr) {
-        smatrix <- rbind(smatrix, temp[, ((i - 1) * cutx + 1):(i * 
-            cutx)])
+    if (Ngr > 1){  
+    	for (i in 2:Ngr) {
+        	smatrix <- rbind(smatrix, temp[, ((i - 1) * cutx + 1):(i * 
+            	cutx)])
+    	}
     }
     smatrixdim <- dim(smatrix)
     smatrix <- rbind(smatrix, matrix(0, ncol = smatrixdim[2]))

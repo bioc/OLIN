@@ -40,7 +40,7 @@ by (adjusted) p-values derived in one-sided permutation test.}
         and negative (\code{Pn}) deviations of
        \eqn{\bar{M}}{median/mean of \code{M}} of the spot's neighbourhood is produced.}
 \author{Matthias E. Futschik (\url{http://itb.biologie.hu-berlin.de/~futschik})}
-\seealso{ \code{\link{fdr.int}}, \code{\link{sigxy.plot}}}, \code{\link{p.adjust}}}
+\seealso{ \code{\link{fdr.int}}, \code{\link{sigxy.plot}}, \code{\link{p.adjust}}}
 
 \examples{
 

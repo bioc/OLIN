@@ -21,8 +21,8 @@
          spatial spot neighbourhoods are presented by green colour.}
 
 \author{Matthias E. Futschik (\url{http://itb.biologie.hu-berlin.de/~futschik})}
-\seealso{\code{\link{colorbar.sig}}, \code{\link{fdr.spatial}},  \code{\link{p.spatial}}, \code{\link{image}}},
-                \code{\link{p.spatial}}
+\seealso{\code{\link{colorbar.sig}}, \code{\link{fdr.spatial}},  \code{\link{p.spatial}}, \code{\link{image}},
+                \code{\link{p.spatial}}}
 \examples{
 
 # To run these examples, "un-comment" them!

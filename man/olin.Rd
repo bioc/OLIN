@@ -31,14 +31,19 @@ Detailed information about OLIN and OSLIN can be found in the package documentat
 Note that OLIN and OSLIN
 are based on the assumptions that most genes are not differentially expressed (or up- and down-regulation
 is balanced) and that genes are randomly spotted across the array. If these assumptions are not valid, local
-regression can lead to an underestimation of differential expression.} 
-}
+regression can lead to an underestimation of differential expression.  OSLIN is especially sensitive to violations  of these assumptions. However, this
+sensitivity can be decreased if the minimal \code{alpha}-value is increased. 
+ 
+
+It is also important to note that OLIN/OSLIN is fairly efficient in removing intensity- and spatial-dependent dye bias, so that normalised  data will look quite \dQuote{good} after normalisation independently of the true underlying data quality. Normalisation by local regression assumes smoothness of bias. Therefore, localised artifacts such as scratches, edge effects or bubbles should be avoided. Spots of these areas should be flagged (before normalisation is applied) to ensure data integrity. To stringently detect artifacts, the OLIN functions \code{fdr.int, fdr.spatial, p.int} and \code{p.spatial} can be used.}
+
+
 \value{Object of class \dQuote{marrayNorm} with normalised logged ratios}
 \author{Matthias E. Futschik (\url{http://itb.biologie.hu-berlin.de/~futschik})}
 \references{
 \enumerate{
 \item M.Futschik and T.Crompton (2004) \emph{Model selection and efficiency testing for normalization of cDNA microarray data},
-\strong{Genome Biology}, \emph{in press} 
+\strong{Genome Biology}, 5:R60
 \item  OLIN web-page: \url{http://itb.biologie.hu-berlin.de/~futschik/software/R/OLIN}}}
 \seealso{\code{\link{maNorm}}, \code{\link{locfit}}, \code{\link{gcv}}}
 \examples{

@@ -87,7 +87,7 @@ olin <- function (object, X = NA, Y = NA, alpha = seq(0.05, 1, 0.1),
     Mn[is.na(maA(object)[, i]), i] <- NA
     object2 <- new("marrayNorm", maA = maA(object), maM = Mn, 
         maLayout = maLayout(object), maGnames = maGnames(object), 
-        maTargets = maTargets(object), maNotes = maNotes(sw), 
+        maTargets = maTargets(object), maNotes = maNotes(object), 
         maNormCall = match.call())
 }
 #############################################################################

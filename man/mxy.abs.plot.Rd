@@ -22,7 +22,7 @@
         spatial artifacts in single fluorescence channels.}
 
 \author{Matthias E. Futschik (\url{http://itb.biologie.hu-berlin.de/~futschik})}
-\seealso{\code{\link{v2m}}, \code{\link{m2v}}, \code{\link{colorbar.mxy.abs}}, }\code{\link{fgbg.visu}}, \code{\link{image}}}
+\seealso{\code{\link{v2m}}, \code{\link{m2v}}, \code{\link{colorbar.mxy.abs}}, \code{\link{fgbg.visu}}, \code{\link{image}}}
 \examples{
 # LOADING DATA
 data(sw)
