@@ -1,14 +1,15 @@
-fgbg.visu <- function (obj) 
+fgbg.visu <- function (obj,label=NA)
 {
     Rf <- maRf(obj)
     Gf <- maGf(obj)
     Rb <- maRb(obj)
     Gb <- maGb(obj)
     for (i in 1:dim(maM(obj))[[2]]) {
+        if (is.na(label))label <- paste("Array",i)
         par(mfrow = c(2, 3))
         tmp <- v2m(log2(Rf[, i]), Nsr = maNsr(obj), Nsc = maNsc(obj), 
             Ngc = maNgc(obj), Ngr = maNgr(obj), color.lim = c(0, 
-                max(log2(Rf[, i]))), main = paste("Array ", i, 
+                max(log2(Rf[, i]))), main = paste(label,
                 ":  log2(Fg)"), visu = TRUE)
         tmp <- v2m(log2(Rb[, i]), Nsr = maNsr(obj), Nsc = maNsc(obj), 
             Ngc = maNgc(obj), Ngr = maNgr(obj), color.lim = c(0, 
@@ -24,16 +25,18 @@ fgbg.visu <- function (obj)
                 i])), 0), main = "log2(Fg)", visu = TRUE)
         tmp <- v2m(-log2(Gb[, i]), Nsr = maNsr(obj), Nsc = maNsc(obj), 
             Ngc = maNgc(obj), Ngr = maNgr(obj), color.lim = c(-max(log2(Gb[, 
-                i])), 0), main = "log2(Bg)", visu = TRUE)
-    
-     tmp <- Gf[, i] - Gb[, i]; tmp[tmp <= 0] <- NaN ; 
+               i])), 0), main = "log2(Bg)", visu = TRUE)
+       tmp <- Gf[, i] - Gb[, i]; tmp[tmp <= 0] <- NaN ; 
        tmp <- v2m(-log2(tmp), Nsr = maNsr(obj), 
             Nsc = maNsc(obj), Ngc = maNgc(obj), Ngr = maNgr(obj), 
-            color.lim = c(max(log2(tmp),na.rm=TRUE),max(log2(tmp),na.rm=TRUE)), 
+            color.lim = c(-max(log2(tmp),na.rm=TRUE),max(log2(tmp),na.rm=TRUE)), 
             main = "log2(Fg-Bg)", visu = TRUE)
+      
+        if  (dim(obj)[2]>1){
         cat("Pause. Press <Enter> to continue...")
         readline()
         invisible()
+     }
     }
 }
 ##############################################################################

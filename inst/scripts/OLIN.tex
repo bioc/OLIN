@@ -77,7 +77,7 @@ the SW620 cell line was cultured from a lymph node metastasis of the same patien
 reference sample. cDNA derived from SW480 cells was labeled by Cy3; cDNA derived 
 from SW620 was labeled by Cy5. The SW480/620 experiment consisted of four 
 technical replicates. The data is stored as object of the class \texttt{marrayRaw} (see
-the documentation for the package \texttt{marrayClasses}). The average logged spot intensity
+the documentation for the package \texttt{marray}). The average logged spot intensity
 $A$ and logged fold changes $M$ can be accessed by using   the slot accessor methods \texttt{maA} and \texttt{maM}, respectively.
 
 
@@ -94,11 +94,6 @@ that plots the spatial distribution of fore- and background spot intensities for
 
 \begin{figure}
 \centering
-\begin{Schunk}
-\begin{Soutput}
-Pause. Press <Enter> to continue...
-\end{Soutput}
-\end{Schunk}
 \includegraphics{OLIN-003}
 \caption{Foreground and background fluorescence intensities for Cy5-channel (top row) and Cy3-channel (bottom) row.}
 \label{fgbg}
@@ -111,7 +106,7 @@ For MA-lots, the basic \texttt{plot} function can be used (figure~\ref{maplot}).
 MXY-lots can be generated 
 by \texttt{mxy.plot}(figure~\ref{mxyplot}). 
 Note that the function   \texttt{mxy.plot} assumes the standard array
-layout as defined for objects of the \texttt{marrayClasses}.
+layout as defined for \textit{marrayRaw/marrayNorm} objects.
   
 \begin{Schunk}
 \begin{Sinput}
@@ -231,7 +226,7 @@ are based  on iterative local regression and parameter selection by GCV.
 The OLIN (and OSLIN) are implemented in R by the function \texttt{olin}:
 
 \begin{quote}
-\texttt{olin(object,X,Y,alpha,iter,scaling,scale)}
+\texttt{olin(object,X,Y,alpha,iter,scaling,scale,weights)}
 \end{quote}
 
 
@@ -256,6 +251,11 @@ The OLIN (and OSLIN) are implemented in R by the function \texttt{olin}:
                     This  allows  a different amount of smoothing in Y-direction compared 
                     to smoothing in X-direction. The default values of \emph{s} are 
                     \texttt{c(0.05,0.1,0.5,1,2,10,20))}.
+           \item[weights] Matrix of prior weights of spots for the regression procedures.
+                          Spots can be excluded to be used
+                          for the local regression by assigning them to zero. Weights can be stored
+                          in the \texttt{maW} slot of  \emph{marrayRaw} objects. Defaults is NA resulting
+                          in uniform weigths of all spots.
       \end{description}
 
 
@@ -340,7 +340,7 @@ that two or three iterations are already sufficient for normalisation (figure~\r
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{OSLIN} 
 If we can assume that the variability of log ratios M should be equal across the array,
- local scaling of M can be performed. As in the previous section, the validity of these assumptions
+ local scaling of \emph{M} can be performed. As in the previous section, the validity of these assumptions
  has to be carefully checked for each experiment analyzed. The underlying requirement is again random 
 spotting of arrayed genes. To apply OSLIN:
 
@@ -379,6 +379,8 @@ The variability of log ratios \emph{M} appears to be even across the array.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+
+
 \begin{figure}
 \centering
 \includegraphics{OLIN-021}
@@ -401,9 +403,75 @@ sensitivity can be decreased if the minimal smooting parameter \texttt{alpha} (d
 It is also important to note that OLIN/OSLIN is fairly efficient in removing intensity- and spatial-dependent dye bias, so that normalised  data will look quite "good" after normalisation independently of the true underlying data quality. Normalisation by local regression assumes smoothness of bias. Therefore, localised artifacts such as scratches, edge effects or bubbles should be avoided. Spots of these areas should be flagged (before normalization os applied) to ensure data integrity. To stringently detect artifacts, the OLIN functions \texttt{fdr.int, fdr.spatial, p.int} and \texttt{p.spatial} can be used.
 
 
+\section{Scaling between arrays of a batch}
+OLIN and OSLIN adjust log ratio \emph{M} of an array independently of other arrays.
+A further reduction  of variation within experiments may be achieved by
+additional scaling of M between arrays \cite{yang}. This procedure is frequently
+also termed 'between-array normalisation' in contrast to 'within-array normalisation'
+as for example performed by O(S)LIN. The log ratios of \emph{M} will be adjusted in different
+arrays to achieve a similar overall distribution of \emph{M}.
+
+However, it assumes that the overall scale of M is the same (or at least similar)
+in the different arrays to be scaled. This should be  carefully checked. Differences in the 
+overall scale of \emph{M} may indicated e.g. changes in hybridisation conditions or mRNA quality.
+Caution should also be taken in the interpretation of results for arrays
+hybridised with  biologically divergent samples, if between-array  scaling is applied.
+
+
+Between-array scaling is implemented in the \emph{OLIN} package through function \texttt{bas}.
+Three different scaling procedures are supported: 
+\begin{enumerate}
+\item  arrays are scaled to have the same variance as calculated by
+\texttt{var},
+\item  arrays are scaled to have the same median absolute deviation calculated by \texttt{mad}
+\item arrays are scaled to have  equal values of quantiles. 
+\end{enumerate}
+
+For illustration, we apply the first scaling procedure to  OLIN-adjusted SW480/620 data consisting of four
+replicate array (figures~\ref{disolin},ref{disbas}):
+
+ 
+\begin{Schunk}
+\begin{Sinput}
+> data(sw.olin)
+> col <- c("red", "blue", "green", "orange")
+> M <- maM(sw.olin)
+> plot(density(M[, 4]), col = col[4], xlim = c(-2, 2))
+> for (i in 1:3) {
++     lines(density(M[, i]), col = col[i])
++ }
+> sw.olin.s <- bas(sw.olin, mode = "var")
+> M <- maM(sw.olin.s)
+> plot(density(M[, 4]), col = col[4], xlim = c(-2, 2))
+> for (i in 1:3) {
++     lines(density(M[, i]), col = col[i])
++ }
+\end{Sinput}
+\end{Schunk}
+
+
+%%%%%%%%%%%%%%%%
+
+\begin{figure}[t]
+\centering
+\includegraphics{OLIN-023}
+\caption{Distribution of M for SW480/620 arrays after OLIN  }
+\label{disolin}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics{OLIN-024}
+\caption{Distribution of M for SW480/620 arrays after OLIN and between-array scaling}
+\label{disbas}
+\end{figure}
+
+%%%%%%%
 
 
 
+ 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -461,7 +529,7 @@ Although correlation analysis can be readily applied, it  cannot
 deliver localization of experimental bias in the data. 
 To detect areas of bias in the microarray data, alternative methods can be applied. 
 
-The OLIN package contains two ANOVA models. The first model (\texttt{anovaint}) can be used
+The OLIN package contains two four models. The first model (\texttt{anovaint}) can be used
 to assess intensity-dependent bias. For this task, the A-scale is divided into \emph{N} intervals
 containing equal number of spots. The null hypothesis tested is the equality of the means of \emph{M} for the different intervals.  The input argument \texttt{index} indicates which array stored in object \emph{sw}
  should
@@ -557,20 +625,101 @@ as derived in the block-wise \textit{t}-tests. Note that the differences in scal
 \end{Sinput}
 \end{Schunk}
 
-\begin{figure}
+\begin{figure}[t]
 \centering
-\includegraphics{OLIN-028}
+\includegraphics{OLIN-031}
 \caption{ANOVA for raw data}
 \label{anova}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[t]
 \centering
-\includegraphics{OLIN-029}
+\includegraphics{OLIN-032}
 \caption{ANOVA for normalised data}
 \label{anovaolin}
 \end{figure}
 
+
+
+Additionally, simple one-factorial ANOVA 
+models were implemented to test microarray data for  pin- and plate-dependent
+bias. Testing for pin bias by \texttt{anovapin} is similar to testing for spatial 
+bias by \texttt{anovaspatial}. The factors in \texttt{anovapin} are the pin indices.
+The null hypothesis is the equality of the means of \emph{M} for the different pins.
+In the same manner, it can be tested if there is a significant variation of \emph{M}
+due to the use of distinct microtiter plate for spotting. An ANOVA model for this
+task is implemented in function \texttt{anovaplate}.In this case, the null hypothesis 
+is the equality of the means of \emph{M} for the different plates.
+
+\begin{Schunk}
+\begin{Sinput}
+> print(anovapin(sw.olin, index = 3))
+\end{Sinput}
+\begin{Soutput}
+Call:
+lm(formula = M ~ pin - 1)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-3.52360 -0.12385  0.02639  0.16370  1.86024 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)
+pin1   0.0039128  0.0192361   0.203    0.839
+pin2  -0.0106872  0.0192361  -0.556    0.579
+pin3   0.0091040  0.0192361   0.473    0.636
+pin4  -0.0008347  0.0192361  -0.043    0.965
+pin5  -0.0054745  0.0192361  -0.285    0.776
+pin6  -0.0027475  0.0192361  -0.143    0.886
+pin7  -0.0056540  0.0192361  -0.294    0.769
+pin8   0.0163252  0.0192361   0.849    0.396
+pin9   0.0034916  0.0192361   0.182    0.856
+pin10 -0.0134907  0.0192361  -0.701    0.483
+pin11  0.0220993  0.0192361   1.149    0.251
+pin12 -0.0087947  0.0192361  -0.457    0.648
+pin13 -0.0036712  0.0192361  -0.191    0.849
+pin14  0.0009873  0.0192361   0.051    0.959
+pin15 -0.0042046  0.0192361  -0.219    0.827
+pin16 -0.0047317  0.0192361  -0.246    0.806
+
+Residual standard error: 0.3125 on 4208 degrees of freedom
+Multiple R-Squared: 0.0008749,	Adjusted R-squared: -0.002924 
+F-statistic: 0.2303 on 16 and 4208 DF,  p-value: 0.9993 
+\end{Soutput}
+\end{Schunk}
+
+
+\begin{Schunk}
+\begin{Sinput}
+> print(anovaplate(sw.olin, index = 3))
+\end{Sinput}
+\begin{Soutput}
+Call:
+lm(formula = M ~ plate - 1)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-3.52229 -0.12456  0.02676  0.16503  1.84526 
+
+Coefficients:
+         Estimate Std. Error t value Pr(>|t|)
+plate1  -0.006750   0.015944  -0.423    0.672
+plate2   0.016557   0.015944   1.038    0.299
+plate3  -0.004982   0.015944  -0.312    0.755
+plate4  -0.002405   0.015944  -0.151    0.880
+plate5  -0.002684   0.015944  -0.168    0.866
+plate6  -0.004239   0.015944  -0.266    0.790
+plate7  -0.003904   0.015944  -0.245    0.807
+plate8  -0.004605   0.015944  -0.289    0.773
+plate9   0.001493   0.015944   0.094    0.925
+plate10  0.003855   0.015944   0.242    0.809
+plate11  0.004659   0.015944   0.292    0.770
+
+Residual standard error: 0.3124 on 4213 degrees of freedom
+Multiple R-Squared: 0.0004207,	Adjusted R-squared: -0.002189 
+F-statistic: 0.1612 on 11 and 4213 DF,  p-value: 0.9991 
+\end{Soutput}
+\end{Schunk}
 
 
 ANOVA methods assume normality of the analysed data. This, however, may not be the
@@ -617,9 +766,9 @@ deviations of  $\bar{M}$ are displayed in green.
 
 
 
-\begin{figure}
+\begin{figure}[t]
 \centering
-\includegraphics{OLIN-031}
+\includegraphics{OLIN-036}
 \caption{MA-plot and FDRs of  intensity-dependent bias for raw data }
 \label{fdrintraw}
 \end{figure}
@@ -640,7 +789,7 @@ deviations of  $\bar{M}$ are displayed in green.
 
 \begin{figure}
 \centering
-\includegraphics{OLIN-033}
+\includegraphics{OLIN-038}
 \caption{MA-plot and FDRs of  intensity-dependent bias for data normalised by OLIN }
 \label{fdrintolin}
 \end{figure}
@@ -667,7 +816,7 @@ removal of location-dependent bias by OLIN (figure~\ref{fdrspatialraw} and \ref{
 
 \begin{figure}
 \centering
-\includegraphics{OLIN-035}
+\includegraphics{OLIN-040}
 \caption{FDR of location-dependent bias for raw data }
 \label{fdrspatialraw}
 \end{figure}
@@ -685,7 +834,7 @@ removal of location-dependent bias by OLIN (figure~\ref{fdrspatialraw} and \ref{
 
 \begin{figure}
 \centering
-\includegraphics{OLIN-037}
+\includegraphics{OLIN-042}
 \caption{FDR of location-dependent bias for data normalised by OLIN}
 \label{fdrspatialolin}
 \end{figure}
@@ -707,14 +856,18 @@ A more detailed description of the permutation tests can be found in the \textit
 
 %BIBLIOGRAPHY
 \begin{thebibliography}{99}
-\bibitem{toni} M.Futschik and T. Crompton (2004) Model selection and efficiency testing for normalisation of cDNA microarray data, \emph{Genome Biology}, in press
+\bibitem{toni} M.Futschik and T. Crompton (2004) Model selection and efficiency testing for normalisation of cDNA microarray data, \emph{Genome Biology}, 5:R60  
 \bibitem{genomeletters} M. Futschik, A.Jeffs, S.Pattison, N.Kasabov, M.Sullivan, A.Merrie and A.Reeve (2002) Gene expression profiling of metastatic and non-metastatic colorectal cancer cell-lines,  \emph{Genome Letters}, 1(1) , 26-34
 \bibitem{loader} C. Loader (1999) Local regression and likelihood, Springer, New York
 \bibitem{cleveland} WS Cleveland (1979) Robust locally weighted regression and smoothing scatterplots,
 \emph{J Am Stat Ass}, 74, 829-836
 \bibitem{jo} J. Schuchhardt, D. Beule, A. Malik, E. Wolski, H. Eickhoff, H. Lehrach and H.Herzel (2000)
 Normalization strategies for cDNA microarrays. \emph{Nucleic Acid Research} 28:e47
-
+\bibitem{yang} Y. H. Yang, S. Dudoit, P. Luu, D. M. Lin, V. Peng, J. Ngai, and T.
+     P. Speed (2002). Normalization for cDNA microarray data: a robust
+     composite method addressing single and multiple slide systematic
+     variation. \emph{Nucleic Acids Research}, Vol. 30, No. 4.
+ 
 
 
 \end{thebibliography}

@@ -21,14 +21,13 @@
          The function \code{mxy.plot} generates a  2D-plot (MXY-plot) of the values of \emph{M} across the
          array. \emph{M} is given in form of the vector V. 
          Note that this function assumes a specific mapping between the data points and the location of spot (i.e.
-         the same mapping rule that is used for marrayClasses objects (see the documentation of packet marrayClasses)  
-         Although any quantity \code{V} can be plotted, the function \code{mxy2.plot} is customised to plot the logged fold-change \emph{M}.
+         the same mapping rule that is used for marrayRaw/marrayNorm objects (see the documentation of packet marray)
         The colour range of the MXY plot is centred around zero and
          follows the conventional colouring (green for negative, red for positive fold-changes). For a separate visualisation\
          of the two channels, see function \code{fgbg.visu}.}
 
 \author{Matthias E. Futschik (\url{http://itb.biologie.hu-berlin.de/~futschik})}
-\seealso{\code{\link{v2m}}, \code{\link{m2v}}, \code{\link{fgbg.visu}}, \code{\link{image}}}
+\seealso{\code{\link{v2m}}, \code{\link{m2v}}, \code{\link{fgbg.visu}}, \code{\link{image}}, \code{\link[marray]{marrayRaw}}}
 \examples{
 # LOADING DATA
 data(sw)

@@ -1,5 +1,8 @@
 anovaint                       One-factorial ANOVA assessing intensity-dependent bias
+anovapin 		       One-factorial ANOVA assessing pin-dependent bias    			
+anovaplate		       One-factorial ANOVA assessing plate-dependent bias
 anovaspatial                   One-factorial ANOVA assessing spatial bias
+bas			       Between-array scaling
 colorbar.mxy.abs               Generates a colour bar
 colorbar.mxy                   Generates a colour bar
 colorbar.sig                   Generates a colour bar for spatial significance plots

@@ -3,8 +3,8 @@
 \title{Optimised local intensity-dependent normalisation of two-colour microarrays} 		
 \description{This functions performs optimised local intensity-dependent normalisation (OLIN) and 
 optimised scaled intensity-dependent normalisation (OSLIN).}
-\usage{olin(object,X=NA,Y=NA,alpha=seq(0.05,1,0.1),iter=3),
-            scale=c(0.05,0.1,0.5,1,2,10,20),scaling=FALSE)}
+\usage{olin(object,X=NA,Y=NA,alpha=seq(0.1,1,0.1),iter=3,
+            scaling=FALSE,scale=c(0.05,0.1,0.5,1,2,10,20),weights=NA)}
            \arguments{\item{object}{object of class \dQuote{marrayRaw}}
            \item{X}{matrix with x-coordinates of spots. If X=NA, columns on array are used
             as proxies for the location in x-direction}
@@ -14,6 +14,10 @@ optimised scaled intensity-dependent normalisation (OSLIN).}
            \item{iter}{number of iterations in the OLIN procedure}
            \item{scaling}{If scaling=TRUE, a subsequent optimised scaling is performed}
            \item{scale}{vector of scale parameters that are tested in a GCV procedure.}
+	   \item{weights}{matrix of weights for  local regression. 
+                          Rows correspond to the spotted probe sequences, columns to arrays in the batch.
+                          These may be derived from the matrix of  spot quality weights as defined 
+                          for \dQuote{maRaw} objects.}	
 }         
 \details{
 OLIN and OSLIN are based on iterative local regression and incorporate optimisation of model parameters.
@@ -28,11 +32,15 @@ The choice of model parameters \code{alpha} and \code{scale} for local regressio
 quality of normalization. To optimize the model parameters, a general cross-validation procedure (GCV) is applied.
 The arguments \code{alpha} and \code{scale} define the parameters values which are tested in the GCV. 
 Detailed information about OLIN and OSLIN can be found in the package documentation and in the  reference stated below. 
+The weights argument specifies the influence of the single spots on the local regression. To exclude 
+spots being used for the local regression (such as control spots), set their corresponding weight to zero. 
 Note that OLIN and OSLIN
 are based on the assumptions that most genes are not differentially expressed (or up- and down-regulation
 is balanced) and that genes are randomly spotted across the array. If these assumptions are not valid, local
 regression can lead to an underestimation of differential expression.  OSLIN is especially sensitive to violations  of these assumptions. However, this
-sensitivity can be decreased if the minimal \code{alpha}-value is increased. 
+sensitivity can be decreased if the minimal \code{alpha}-value is increased. Minimal \code{alpha} defines the 
+smallest scale used for local regression. Increasing \code{alpha} can reduce the influence of localised 
+artifacts as a larger fraction of  data points is included. 
  
 
 It is also important to note that OLIN/OSLIN is fairly efficient in removing intensity- and spatial-dependent dye bias, so that normalised  data will look quite \dQuote{good} after normalisation independently of the true underlying data quality. Normalisation by local regression assumes smoothness of bias. Therefore, localised artifacts such as scratches, edge effects or bubbles should be avoided. Spots of these areas should be flagged (before normalisation is applied) to ensure data integrity. To stringently detect artifacts, the OLIN functions \code{fdr.int, fdr.spatial, p.int} and \code{p.spatial} can be used.}

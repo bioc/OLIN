@@ -19,8 +19,8 @@ it produces a 2D-plot.}
 \details{The function \code{v2m} converts a vector \code{V} (as e.g. derived by \code{maM(object)[,index]}) to a matrix representing
         the spatial distribution of the values of \code{V} across the array. 
          Note that this function assumes a specific mapping between the data points and the location of spot (i.e.
-         the same mapping rule that is used for marrayClasses objects.) The validity of this mapping should be 
-         carefully checked (see also the documentation of packet marrayClasses.)  
+         the same mapping rule that is used for marrayRaw/marrayNorm objects.) The validity of this mapping should be 
+         carefully checked (see also the documentation of packet \emph{marray}.)  
          The option for spatial visualisation
          is rather restricted to logged fold-changes as the corresponding colour range is centred around zero and
          follows the conventional colouring (green for negative, red for positive fold-changes). The MXY plot produced
@@ -30,7 +30,7 @@ it produces a 2D-plot.}
 \value{ A 2D-matrix with \code{(Ngc*Nsc)} columns and \code{(Ngr*Nsr)} is produced. This matrix represents the spatial
         distribution of the values of vector \code{V} given the print-layout. }
 \author{Matthias E. Futschik, \url{http://itb.biologie.hu-berlin.de/~futschik}}}
-\seealso{\code{\link{mxy.plot}}, \code{\link{m2v}}}
+\seealso{\code{\link{mxy.plot}}, \code{\link{m2v}}, \code{\link[marray]{marrayRaw}}}
 \examples{
 
 # LOADING DATA NOT-NORMALISED

@@ -3,10 +3,11 @@
 \title{Visualisation of foreground and background  fluorescence spot intensities in both channels}
 \description{This function generates 2D-plots of the foreground, background and background corrected
  fluorescence intensities of channel 1 and of channel 2, respectively. } 
-\usage{fgbg.visu(obj)}
+\usage{fgbg.visu(obj,label=NA)}
 \arguments{\item{obj}{object of class \dQuote{marrayRaw}}
+            \item{label}{character string for labelling. It will be added to the title of the first sub-plot.}
            }
-\details{The function \code{fgbg.int} produces 2D-representations of the foreground 
+\details{The function \code{fgbg.visu} produces 2D-representations of the foreground 
 	 and  background intensities for both fluorescence channels (as stored in 
          \code{obj}). Additionally, a plot of the difference between fore- and
          background intensities is generated (\emph{background-corrected intensities}). 
