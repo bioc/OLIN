@@ -3,7 +3,7 @@
 \title{Visualisation of foreground and background  fluorescence spot intensities in both channels}
 \description{This function generates 2D-plots of the foreground, background and background corrected
  fluorescence intensities of channel 1 and of channel 2, respectively. } 
-\usage{fgbg.visu(obj,label=NA)}
+\usage{fgbg.visu(obj,label)}
 \arguments{\item{obj}{object of class \dQuote{marrayRaw}}
             \item{label}{character string for labelling. It will be added to the title of the first sub-plot.}
            }
