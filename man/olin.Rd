@@ -53,7 +53,7 @@ It is also important to note that OLIN/OSLIN is fairly efficient in removing int
 \item M.Futschik and T.Crompton (2004) \emph{Model selection and efficiency testing for normalization of cDNA microarray data},
 \strong{Genome Biology}, 5:R60
 \item  OLIN web-page: \url{http://itb.biologie.hu-berlin.de/~futschik/software/R/OLIN}}}
-\seealso{\code{\link{maNorm}}, \code{\link{locfit}}, \code{\link{gcv}}}
+\seealso{\code{\link[marray]{maNorm}}, \code{\link[locfit]{locfit}}, \code{\link[locfit]{gcv}}}
 \examples{
 
 
