@@ -1,7 +1,7 @@
 \name{sigxy.plot}	
 \alias{sigxy.plot} 
 \title{Visualisation of significance tests for spatial bias}
-\description{This function produce a 2D-plot visualizing the significance
+\description{This function produces a 2D-plot visualizing the significance
              of spatial bias.}
 
 \usage{sigxy.plot(Sp,Sn,color.lim=c(-3,3),...) }

@@ -5,7 +5,7 @@
 
 \documentclass[a4paper,11pt]{article}
 \usepackage{a4wide}
-\title{Introduction to OLIN package }
+\title{Introduction to OLIN package \\ \large{-- Version 1.4   --}}
 \author{Matthias E. Futschik\\ Institute for Theoretical Biology,  Humboldt-University\\ URL: \textit{http://itb.biologie.hu-berlin.de/$\sim$futschik/software/R/OLIN}}
 \begin{document}
 \maketitle
@@ -40,7 +40,7 @@ can be downloaded from the OLIN webpage (\textit{http://itb.biologie.hu-berlin.d
 \section{Installation requirements}
 Following software is required to run the OLIN-package:
 \begin{itemize} 
-\item  R (> 1.9.0). For installation of R, refer to \textit{http://www.r-project.org}.
+\item  R (> 2.0.0). For installation of R, refer to \textit{http://www.r-project.org}.
 \item  R-packages: methods, stats, locfit. For installation of these add-on packages, refer to \textit{http://cran.r-project.org}.
 \item Bioconductor packages: Biobase, marray. Refer to \textit{http://www.bioconductor.org} for installation. 
 \end{itemize}
@@ -233,7 +233,7 @@ are based  on iterative local regression and parameter selection by GCV.
 The OLIN (and OSLIN) are implemented in R by the function \texttt{olin}:
 
 \begin{quote}
-\texttt{olin(object,X,Y,alpha,iter,scaling,scale,weights)}
+\texttt{olin(object,X,Y,alpha,iter,OSLIN,scale,weights,...)}
 \end{quote}
 
 
@@ -252,7 +252,8 @@ The OLIN (and OSLIN) are implemented in R by the function \texttt{olin}:
            \item[alpha] Vector of $\alpha$  parameters that are tested in the GCV procedure. The $\alpha$  parameter 
                   defines the smoothness of fit.  The default vector is \texttt{seq(0.05,1,0.1)}.
            \item[iter] Number of iterations in the OLIN or OSLIN procedure. The default value is 3. 
-           \item[scaling] If scaling=TRUE, a subsequent optimised scaling, and thus OSLIN,  is performed.
+           \item[OSLIN] If OSLIN =TRUE, a subsequent optimised scaling of the range of M across the array
+                        is performed.
                          The default value is \emph{FALSE}, i.e. OLIN is performed. 
            \item[scale] Vector of scale parameters \emph{s} that are tested in a GCV procedure. 
                     This  allows  a different amount of smoothing in Y-direction compared 
@@ -262,7 +263,8 @@ The OLIN (and OSLIN) are implemented in R by the function \texttt{olin}:
                           Spots can be excluded to be used
                           for the local regression by assigning them to zero. Weights can be stored
                           in the \texttt{maW} slot of  \emph{marrayRaw} objects. Defaults is NA resulting
-                          in uniform weigths of all spots.
+                          in uniform weigths of all spots. 
+          \item[...] Further arguments passed to the  \texttt{locfit} function.	
       \end{description}
 
 
@@ -322,7 +324,7 @@ that two or three iterations are already sufficient for normalisation (figure~\r
 
 
 <<echo=TRUE,eval=FALSE>>=
-norm.olin.1 <- olin(olin.sw[,3],X=sw.xy$X[,3],Y=sw.xy$Y[,3],iter=1)
+norm.olin.1 <- olin(sw[,3],X=sw.xy$X[,3],Y=sw.xy$Y[,3],iter=1)
 norm.olin.2 <- olin(norm.olin.1,X=sw.xy$X[,3],Y=sw.xy$Y[,3],iter=1)
 norm.olin.3 <- olin(norm.olin.2,X=sw.xy$X[,3],Y=sw.xy$Y[,3],iter=1)
 
@@ -333,20 +335,10 @@ pairs(M,labels= c("raw","1.Iter.","2.Iter.","3.Iter."))
 
 \begin{figure}
 \centering
-<<echo=FALSE,fig=TRUE,height=5,width=5.5>>=
-norm.olin.1 <- olin(sw[,3],X=sw.xy$X[,3],Y=sw.xy$Y[,3],iter=1)
-norm.olin.2 <- olin(norm.olin.1,X=sw.xy$X[,3],Y=sw.xy$Y[,3],iter=1)
-norm.olin.3 <- olin(norm.olin.2,X=sw.xy$X[,3],Y=sw.xy$Y[,3],iter=1)
-
-M <- cbind(maM(sw)[,3],maM(norm.olin.1),maM(norm.olin.2),maM(norm.olin.3))
-pairs(M,labels= c("raw","1.Iter.","2.Iter.","3.Iter."))
-@
-
-
+\resizebox{0.8\textwidth}{!}{\includegraphics{scatter.png}}
 \caption{Convergence of iterative normalisation }
 \label{iter}
 \end{figure}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -360,7 +352,7 @@ If we can assume that the variability of log ratios M should be equal across the
 spotting of arrayed genes. To apply OSLIN:
 
 <<>>=
-norm.oslin <- olin(sw[,3],X=sw.xy$X[,3],Y=sw.xy$Y[,3],alpha=c(0.1,1,0.1),scaling=TRUE)
+norm.oslin <- olin(sw[,3],X=sw.xy$X[,3],Y=sw.xy$Y[,3],alpha=c(0.1,1,0.1),OSLIN=TRUE)
 @
 
 The local scaling factors are  derived by optimized local regression of the absolute log ratio M. 
@@ -393,8 +385,16 @@ plot(maA(norm.oslin),maM(norm.oslin),main="OSLIN",pch=".")
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The \emph{weights} argument can be used for two purposes. First, it can be 
+to exclude a set of spots (such as control spots)  to be used  for local regression. Second, it can be used 
+to base the regression on a selected set of genes assumed to be not differentially expressed (\emph{house-keeping
+genes}).  
+If the normalisation should be based on such a set, weights can be used for local regression. 
+In this case, all weights should be  set to zero except for
+the house-keeping genes for which weights are set to one. In order to achieve a reliable regression, it is important, however, that there is a sufficient number of house-keeping genes that  cover the whole expression range
+and are spotted accross the whole array.
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \begin{figure}
@@ -420,7 +420,11 @@ sensitivity can be decreased if the minimal smooting parameter \texttt{alpha} (d
  is set to larger values. 
  
 
-It is also important to note that OLIN/OSLIN is fairly efficient in removing intensity- and spatial-dependent dye bias, so that normalised  data will look quite "good" after normalisation independently of the true underlying data quality. Normalisation by local regression assumes smoothness of bias. Therefore, localised artifacts such as scratches, edge effects or bubbles should be avoided. Spots of these areas should be flagged (before normalization os applied) to ensure data integrity. To stringently detect artifacts, the OLIN functions \texttt{fdr.int, fdr.spatial, p.int} and \texttt{p.spatial} can be used.
+It is also important to note that OLIN/OSLIN is fairly efficient in removing intensity- and spatial-dependent dye bias, so that normalised  data will look quite "good" after normalisation independently of the true underlying data quality. Normalisation by local regression assumes smoothness of bias. Therefore, localised artifacts such as scratches, edge effects or bubbles should be avoided. Spots of these areas should be flagged (before normalization is applied) to ensure data integrity. To stringently detect artifacts, the OLIN functions \texttt{fdr.int, fdr.int2, fdr.spatial,fdr.spatial2, 
+p.int, p.int2, p.spatial} and \texttt{p.spatial2} can be used. 
+Flagging of the data spots in regions of intensity- or location-dependent bias can be performed 
+by \texttt{sig.mask}. For an example of such an flagging or masking procedure, 
+see the help page of \texttt{sig.mask}.
 
 
 \section{Scaling between arrays of a batch}
@@ -628,7 +632,6 @@ s <- anovaspatial(sw.olin,index=3,xN=8,yN=8,visu=TRUE)
 \end{figure}
 
 
-
 Additionally, simple one-factorial ANOVA 
 models were implemented to test microarray data for  pin- and plate-dependent
 bias. Testing for pin bias by \texttt{anovapin} is similar to testing for spatial 
@@ -659,7 +662,7 @@ Generally, such tests are not used in interactive mode but are performed in batc
 
 
 Four permutation tests procedures were implemented in the OLIN package. 
-The functions \texttt{fdr.int} and \texttt{p.int} assess intensity-dependent
+The functions \texttt{fdr.int}  and \texttt{p.int} assess intensity-dependent
 bias. The functions \texttt{fdr.spatial} and \texttt{p.spatial} assess location-dependent
 bias. The basic procedure is similar for all four functions.
 First, a (intensity or location)  neighbourhood of spots is defined similarly to the procedure
@@ -785,6 +788,8 @@ Another difference between the functions is the procedure to generate random per
 The function \texttt{fdr.int} and \texttt{fdr.spatial} are based on re-sampling without replacement,
 whereas  \texttt{p.int} and \texttt{p.spatial} are based on re-sampling with replacement.  
 A more detailed description of the permutation tests can be found in the \textit{help}-pages of these functions.
+
+Finally, a second set of functions  (\texttt{fdr.int2, p.int2, fdr.spatial2, p.spatial2, sigint.plot2,sigxy.plot2} has been introduced for the present version of the OLIN package. Their functionality is the same as for the first set (i.e. \texttt{fdr.int, p.int,...}). However, the input arguments  and output objects of the functions  may differ (see the  relevant \textit{help}). Both sets will be merged based on S4-style functions in future versions.
 
 
 

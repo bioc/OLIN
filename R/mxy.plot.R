@@ -1,6 +1,19 @@
 mxy.plot <- function (V, Ngc, Ngr, Nsc, Nsr, color.lim = c(-1, 1), xlab = "Columns", 
     ylab = "Rows", ...) 
 {
+    opo <- par(no.readonly = TRUE)
+    
+    if ((class(V)=="marrayRaw")|(class(V)=="marrayNorm")){
+        
+         Ngc <- maNgc(V) 
+         Ngr <- maNgr(V)
+         Nsc <- maNsc(V)
+         Nsr <- maNsr(V)
+         V   <- maM(V)
+    } 
+     
+    
+
     ### CONVERSION OF VECTOR TO MATRIX
     tmp <- matrix(nrow = Nsr)
     for (s in 1:(Ngc * Ngr)) {
@@ -32,6 +45,7 @@ mxy.plot <- function (V, Ngc, Ngr, Nsc, Nsr, color.lim = c(-1, 1), xlab = "Colum
         col = colo, zlim = color.lim, xlab = xlab, ylab = ylab, 
         ...)
     colorbar.mxy(color.lim = color.lim, ylablim = FALSE)
+    par(opo)
 }
 ############################################################################
 

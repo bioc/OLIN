@@ -1,6 +1,6 @@
 \name{anovapin}
 \alias{anovapin}
-\title{One-factorial ANOVA assessing pin-dependent bias}
+\title{One-factorial ANOVA assessing pin-dependent bias.}
 \description{This function performs an one-factorial analysis of variance assessing  pin-dependent bias 
 for a single array}
 \usage{anovapin(obj,index)}

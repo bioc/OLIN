@@ -4,7 +4,9 @@
 \description{This function produce a MXY plot including  a colour bar.}
 
 \usage{mxy.plot(V,Ngc,Ngr,Nsc,Nsr,color.lim=c(-1,1),xlab="Columns",ylab="Rows",...) }
-\arguments{\item{V}{vector of real values typically logged ratios \emph{M}. }
+\arguments{\item{V}{vector of real values typically logged ratios \emph{M}. Alternatively,
+                    V can be an object of class marrayRaw or marrayNorm. In this case,
+                    the layout of the array does not need to be given.}
       \item{Ngc}{number of columns for the grid matrix}
       \item{Ngr}{number of rows for the grid matrix}
       \item{Nsc}{number of columns for the spot matrix}
@@ -31,8 +33,12 @@
 \examples{
 # LOADING DATA
 data(sw)
+
 # PLOTTING
 mxy.plot(maM(sw)[,1],Ngc=maNgc(sw),Ngr=maNgr(sw), Nsc=maNsc(sw),Nsr=maNsr(sw))
+
+# ALTERNATIVE
+mxy.plot(sw[,1])
 
 }
 \keyword{hplot}

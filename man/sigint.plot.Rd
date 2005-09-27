@@ -1,7 +1,7 @@
 \name{sigint.plot}	
 \alias{sigint.plot} 
 \title{Visualisation of significance of intensity-dependent bias}
-\description{This function produce a 2D plot visualizing the significance
+\description{This function visualises  the significance
              of intensity-dependent bias.}
  
 \usage{sigint.plot(A,M,Sp,Sn,ylim=c(-3,-3),...) }

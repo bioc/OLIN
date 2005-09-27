@@ -9,11 +9,11 @@ fgbg.visu <- function (obj,label)
     
 
     for (i in 1:dim(maM(obj))[[2]]) {
-        if (missing(label)) label2 <- paste("Array",i)
+        if (missing(label)) label <- paste("Array",i)
         par(mfrow = c(2, 3))
         tmp <- v2m(log2(Rf[, i]), Nsr = maNsr(obj), Nsc = maNsc(obj), 
             Ngc = maNgc(obj), Ngr = maNgr(obj), color.lim = c(-max(log2(Rf[, i])), 
-                max(log2(Rf[, i]))), main = paste(label2,
+                max(log2(Rf[, i]))), main = paste(label,
                 ":  log2(Fg)"), visu = TRUE)
         tmp <- v2m(log2(Rb[, i]), Nsr = maNsr(obj), Nsc = maNsc(obj), 
             Ngc = maNgc(obj), Ngr = maNgr(obj), color.lim = c(-max(log2(Rf[, i])), 

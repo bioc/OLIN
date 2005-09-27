@@ -14,7 +14,7 @@
            The null hypothesis states the independence of A and M. To test if \code{M} depends on \code{A}, 
            spots are ordered with respect to A. This defines a neighbourhood of spots with similar A for each spot. 
            Next, a test statistic is defined by calculating the \emph{median} or \emph{mean} of \code{M}
-            (\eqn{\bar{M}}{}) within
+            within
            a symmetrical spot's intensity neighbourhood of chosen size (\code{2 *delta+1}). An empirical distribution of the 
            test statistic is produced by calculating  for \code{N} random  intensity orders of spots. 
            Comparing this empirical distribution of \eqn{\bar{M}}{median/mean of \code{M}}
@@ -38,16 +38,17 @@
          window extends over the limits of the intensity scale, the significance is set to \code{NA}.}
 \value{A list of vector containing the false discovery rates for positive  (\code{FDRp}) and negative (\code{FDRn})  deviations of
        \eqn{\bar{M}}{median/mean of \code{M}} (of the spot's neighbourhood) is produced. }
+\note{The same functionality but with our input and output formats is offered by \code{\link{fdr.int}}}
 \author{Matthias E. Futschik (\url{http://itb.biologie.hu-berlin.de/~futschik})}
-\seealso{\code{\link{p.int}}, \code{\link{fdr.spatial}}, \code{\link{sigint.plot}}}
+\seealso{\code{\link{fdr.int2}},\code{\link{p.int}}, \code{\link{fdr.spatial}}, \code{\link{sigint.plot}}}
 \examples{
 
-# To run these examples, "un-comment" them!
+# To run these examples, delete the comment signs (#) in front of the commands.
 #
 # LOADING DATA NOT-NORMALISED
 # data(sw)
 # CALCULATION OF SIGNIFICANCE OF SPOT NEIGHBOURHOODS
-# For this  illustration, N was chosen rather small. For "real" analysis, it should be larger.
+# For this example, N was chosen rather small. For "real" analysis, it should be larger.
 # FDR <- fdr.int(maA(sw)[,1],maM(sw)[,1],delta=50,N=10,av="median")
 # VISUALISATION OF RESULTS
 # sigint.plot(maA(sw)[,1],maM(sw)[,1],FDR$FDRp,FDR$FDRn,c(-5,-5))

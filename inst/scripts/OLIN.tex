@@ -5,9 +5,9 @@
 
 \documentclass[a4paper,11pt]{article}
 \usepackage{a4wide}
-\title{Introduction to OLIN package }
+\title{Introduction to OLIN package \\ \large{-- Version 1.4 --}}
 \author{Matthias E. Futschik\\ Institute for Theoretical Biology,  Humboldt-University\\ URL: \textit{http://itb.biologie.hu-berlin.de/$\sim$futschik/software/R/OLIN}}
-\usepackage{/usr/lib/R/share/texmf/Sweave}
+\usepackage{C:/Programme/R/rw2000/share/texmf/Sweave}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -33,13 +33,16 @@ and model selection. Both  schemes aim to correct for intensity- and location-de
 Additionally, several procedures to assess the efficiencies of normalisation are implemented
 in the package. 
 
+A graphical user interface for OLIN has been implemented in the package OLINgui, that
+can be downloaded from the OLIN webpage (\textit{http://itb.biologie.hu-berlin.de/$\sim$futschik/
+software/R/OLIN}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%
 \section{Installation requirements}
 Following software is required to run the OLIN-package:
 \begin{itemize} 
-\item  R (> 1.9.0). For installation of R, refer to \textit{http://www.r-project.org}.
+\item  R (> 2.0.0). For installation of R, refer to \textit{http://www.r-project.org}.
 \item  R-packages: methods, stats, locfit. For installation of these add-on packages, refer to \textit{http://cran.r-project.org}.
 \item Bioconductor packages: Biobase, marray. Refer to \textit{http://www.bioconductor.org} for installation. 
 \end{itemize}
@@ -126,8 +129,8 @@ layout as defined for \textit{marrayRaw/marrayNorm} objects.
 
 \begin{Schunk}
 \begin{Sinput}
-> mxy.plot(maM(sw)[, 3], Ngc = maNgc(sw), Ngr = maNgr(sw), Nsc = maNsc(sw), 
-+     Nsr = maNsr(sw))
+> mxy.plot(maM(sw)[, 3], Ngc = maNgc(sw), Ngr = maNgr(sw), Nsc = maNsc(sw),
++ Nsr = maNsr(sw))
 \end{Sinput}
 \end{Schunk}
 
@@ -149,14 +152,15 @@ To plot $abs(M)$, the function \texttt{mxy.abs.plot} can be employed :
 \begin{Schunk}
 \begin{Sinput}
 > data(sw.xy)
-> mxy.abs.plot(maM(sw)[, 3], Ngc = maNgc(sw), Ngr = maNgr(sw), 
-+     Nsc = maNsc(sw), Nsr = maNsr(sw))
+> mxy.abs.plot(maM(sw)[, 3], Ngc = maNgc(sw), Ngr = maNgr(sw), Nsc = maNsc(sw),
++  Nsr = maNsr(sw))
 \end{Sinput}
 \end{Schunk}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}
 \centering
+
 \includegraphics{OLIN-009}
 \caption{MXY-plot of absolute logged fold changes}
 \label{mxyabsplot}
@@ -176,7 +180,7 @@ Using the function \texttt{mxy2.plot}, such plots can be generated (figure~\ref{
 \begin{Sinput}
 > data(sw.xy)
 > mxy2.plot(maM(sw)[, 3], X = sw.xy$X[, 3], Y = sw.xy$Y[, 3], Ngc = maNgc(sw), 
-+     Ngr = maNgr(sw), Nsc = maNsc(sw), Nsr = maNsr(sw))
++ Ngr = maNgr(sw), Nsc = maNsc(sw), Nsr = maNsr(sw))
 \end{Sinput}
 \end{Schunk}
 
@@ -226,7 +230,7 @@ are based  on iterative local regression and parameter selection by GCV.
 The OLIN (and OSLIN) are implemented in R by the function \texttt{olin}:
 
 \begin{quote}
-\texttt{olin(object,X,Y,alpha,iter,scaling,scale,weights)}
+\texttt{olin(object,X,Y,alpha,iter,OSLIN,scale,weights,...)}
 \end{quote}
 
 
@@ -245,7 +249,8 @@ The OLIN (and OSLIN) are implemented in R by the function \texttt{olin}:
            \item[alpha] Vector of $\alpha$  parameters that are tested in the GCV procedure. The $\alpha$  parameter 
                   defines the smoothness of fit.  The default vector is \texttt{seq(0.05,1,0.1)}.
            \item[iter] Number of iterations in the OLIN or OSLIN procedure. The default value is 3. 
-           \item[scaling] If scaling=TRUE, a subsequent optimised scaling, and thus OSLIN,  is performed.
+           \item[OSLIN] If OSLIN =TRUE, a subsequent optimised scaling of the range of M across the array
+                        is performed.
                          The default value is \emph{FALSE}, i.e. OLIN is performed. 
            \item[scale] Vector of scale parameters \emph{s} that are tested in a GCV procedure. 
                     This  allows  a different amount of smoothing in Y-direction compared 
@@ -255,7 +260,8 @@ The OLIN (and OSLIN) are implemented in R by the function \texttt{olin}:
                           Spots can be excluded to be used
                           for the local regression by assigning them to zero. Weights can be stored
                           in the \texttt{maW} slot of  \emph{marrayRaw} objects. Defaults is NA resulting
-                          in uniform weigths of all spots.
+                          in uniform weigths of all spots. 
+          \item[...] Further arguments passed to the  \texttt{locfit} function.	
       \end{description}
 
 
@@ -278,7 +284,7 @@ applied in the next section will confirm  these findings.
 \begin{Sinput}
 > plot(maA(norm.olin), maM(norm.olin), main = "OLIN", pch = ".")
 > mxy.plot(maM(norm.olin), Ngc = maNgc(norm.olin), Ngr = maNgr(norm.olin), 
-+     Nsc = maNsc(norm.olin), Nsr = maNsr(norm.olin), main = "OLIN")
++   Nsc = maNsc(norm.olin), Nsr = maNsr(norm.olin), main = "OLIN")
 \end{Sinput}
 \end{Schunk}
 
@@ -310,14 +316,10 @@ that two or three iterations are already sufficient for normalisation (figure~\r
 
 \begin{Schunk}
 \begin{Sinput}
-> norm.olin.1 <- olin(olin.sw[, 3], X = sw.xy$X[, 3], Y = sw.xy$Y[, 
-+     3], iter = 1)
-> norm.olin.2 <- olin(norm.olin.1, X = sw.xy$X[, 3], Y = sw.xy$Y[, 
-+     3], iter = 1)
-> norm.olin.3 <- olin(norm.olin.2, X = sw.xy$X[, 3], Y = sw.xy$Y[, 
-+     3], iter = 1)
-> M <- cbind(maM(sw)[, 3], maM(norm.olin.1), maM(norm.olin.2), 
-+     maM(norm.olin.3))
+> norm.olin.1 <- olin(sw[, 3], X = sw.xy$X[, 3], Y = sw.xy$Y[, 3], iter = 1)
+> norm.olin.2 <- olin(norm.olin.1, X = sw.xy$X[, 3], Y = sw.xy$Y[, 3], iter = 1)
+> norm.olin.3 <- olin(norm.olin.2, X = sw.xy$X[, 3], Y = sw.xy$Y[, 3], iter = 1)
+> M <- cbind(maM(sw)[, 3], maM(norm.olin.1), maM(norm.olin.2), maM(norm.olin.3))
 > pairs(M, labels = c("raw", "1.Iter.", "2.Iter.", "3.Iter."))
 \end{Sinput}
 \end{Schunk}
@@ -325,13 +327,10 @@ that two or three iterations are already sufficient for normalisation (figure~\r
 
 \begin{figure}
 \centering
-\includegraphics{OLIN-017}
-
-
+\resizebox{0.8\textwidth}{!}{\includegraphics{scatter.png}}
 \caption{Convergence of iterative normalisation }
 \label{iter}
 \end{figure}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -347,7 +346,7 @@ spotting of arrayed genes. To apply OSLIN:
 \begin{Schunk}
 \begin{Sinput}
 > norm.oslin <- olin(sw[, 3], X = sw.xy$X[, 3], Y = sw.xy$Y[, 3], 
-+     alpha = c(0.1, 1, 0.1), scaling = TRUE)
++ alpha = c(0.1, 1, 0.1), OSLIN = TRUE)
 \end{Sinput}
 \end{Schunk}
 
@@ -362,7 +361,7 @@ The variability of log ratios \emph{M} appears to be even across the array.
 \begin{Sinput}
 > plot(maA(norm.oslin), maM(norm.oslin), main = "OSLIN", pch = ".")
 > mxy.plot(maM(norm.oslin), Ngc = maNgc(norm.oslin), Ngr = maNgr(norm.oslin), 
-+     Nsc = maNsc(norm.oslin), Nsr = maNsr(norm.oslin), main = "OSLIN")
+ + Nsc = maNsc(norm.oslin), Nsr = maNsr(norm.oslin), main = "OSLIN")
 \end{Sinput}
 \end{Schunk}
 
@@ -371,19 +370,27 @@ The variability of log ratios \emph{M} appears to be even across the array.
 
 \begin{figure}
 \centering
-\includegraphics{OLIN-020}
+\includegraphics{OLIN-019}
 \caption{MA-plot of array normalized by  OSLIN }
 \label{maoslin}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The \emph{weights} argument can be used for two purposes. First, it can be 
+to exclude a set of spots (such as control spots)  to be used  for local regression. Second, it can be used 
+to base the regression on a selected set of genes assumed to be not differentially expressed (\emph{house-keeping
+genes}).  
+If the normalisation should be based on such a set, weights can be used for local regression. 
+In this case, all weights should be  set to zero except for
+the house-keeping genes for which weights are set to one. In order to achieve a reliable regression, it is important, however, that there is a sufficient number of house-keeping genes that  cover the whole expression range
+and are spotted accross the whole array.
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \begin{figure}
 \centering
-\includegraphics{OLIN-021}
+\includegraphics{OLIN-020}
 \caption{MXY-plot of array normalized by  OSLIN }
 \label{mxyoslin}
 \end{figure}
@@ -400,7 +407,11 @@ sensitivity can be decreased if the minimal smooting parameter \texttt{alpha} (d
  is set to larger values. 
  
 
-It is also important to note that OLIN/OSLIN is fairly efficient in removing intensity- and spatial-dependent dye bias, so that normalised  data will look quite "good" after normalisation independently of the true underlying data quality. Normalisation by local regression assumes smoothness of bias. Therefore, localised artifacts such as scratches, edge effects or bubbles should be avoided. Spots of these areas should be flagged (before normalization os applied) to ensure data integrity. To stringently detect artifacts, the OLIN functions \texttt{fdr.int, fdr.spatial, p.int} and \texttt{p.spatial} can be used.
+It is also important to note that OLIN/OSLIN is fairly efficient in removing intensity- and spatial-dependent dye bias, so that normalised  data will look quite "good" after normalisation independently of the true underlying data quality. Normalisation by local regression assumes smoothness of bias. Therefore, localised artifacts such as scratches, edge effects or bubbles should be avoided. Spots of these areas should be flagged (before normalization is applied) to ensure data integrity. To stringently detect artifacts, the OLIN functions \texttt{fdr.int, fdr.int2, fdr.spatial,fdr.spatial2, 
+p.int, p.int2, p.spatial} and \texttt{p.spatial2} can be used. 
+Flagging of the data spots in regions of intensity- or location-dependent bias can be performed 
+by \texttt{sig.mask}. For an example of such an flagging or masking procedure, 
+see the help page of \texttt{sig.mask}.
 
 
 \section{Scaling between arrays of a batch}
@@ -454,7 +465,7 @@ replicate array (figures~\ref{disolin},ref{disbas}):
 
 \begin{figure}[t]
 \centering
-\includegraphics{OLIN-023}
+\includegraphics{OLIN-022}
 \caption{Distribution of M for SW480/620 arrays after OLIN  }
 \label{disolin}
 \end{figure}
@@ -462,7 +473,7 @@ replicate array (figures~\ref{disolin},ref{disbas}):
 
 \begin{figure}
 \centering
-\includegraphics{OLIN-024}
+\includegraphics{OLIN-023}
 \caption{Distribution of M for SW480/620 arrays after OLIN and between-array scaling}
 \label{disbas}
 \end{figure}
@@ -512,11 +523,11 @@ Similarly, the location-dependent bias can be assessed:
 
 \begin{Schunk}
 \begin{Sinput}
-> MM <- v2m(maM(sw)[, 3], Ngc = maNgc(sw), Ngr = maNgr(sw), Nsc = maNsc(sw), 
-+     Nsr = maNsr(sw), visu = FALSE)
+> MM <- v2m(maM(sw)[, 3], Ngc = maNgc(sw), Ngr = maNgr(sw), Nsc = maNsc(sw),
++ Nsr = maNsr(sw), visu = FALSE)
 > MMav <- ma.matrix(MM, av = "median", delta = 2, edgeNA = FALSE)
 > Mav <- m2v(MMav, Ngc = maNgc(sw), Ngr = maNgr(sw), Nsc = maNsc(sw), 
-+     Nsr = maNsr(sw), visu = FALSE)
++ Nsr = maNsr(sw), visu = FALSE)
 > cor(Mav, M, use = "pairwise.complete.obs")
 \end{Sinput}
 \begin{Soutput}
@@ -581,24 +592,24 @@ lm(formula = Mo ~ intensityint - 1)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--3.52250 -0.12509  0.02538  0.16351  1.85153 
+-3.59972 -0.12592  0.02501  0.16397  1.86714 
 
 Coefficients:
-                Estimate Std. Error t value Pr(>|t|)
-intensityint1  -0.003941   0.015189  -0.259    0.795
-intensityint2   0.004405   0.015189   0.290    0.772
-intensityint3   0.006523   0.015189   0.429    0.668
-intensityint4   0.010283   0.015189   0.677    0.498
-intensityint5   0.003360   0.015189   0.221    0.825
-intensityint6  -0.004773   0.015189  -0.314    0.753
-intensityint7  -0.011006   0.015189  -0.725    0.469
-intensityint8  -0.004075   0.015189  -0.268    0.789
-intensityint9   0.005160   0.015189   0.340    0.734
-intensityint10 -0.008787   0.015298  -0.574    0.566
+                 Estimate Std. Error t value Pr(>|t|)
+intensityint1  -0.0049581  0.0153753  -0.322    0.747
+intensityint2   0.0085228  0.0153753   0.554    0.579
+intensityint3   0.0100288  0.0153753   0.652    0.514
+intensityint4   0.0092998  0.0153753   0.605    0.545
+intensityint5  -0.0006992  0.0153753  -0.045    0.964
+intensityint6  -0.0047550  0.0153753  -0.309    0.757
+intensityint7  -0.0156696  0.0153753  -1.019    0.308
+intensityint8  -0.0051047  0.0153753  -0.332    0.740
+intensityint9   0.0030058  0.0153753   0.195    0.845
+intensityint10  0.0005948  0.0154856   0.038    0.969
 
-Residual standard error: 0.3124 on 4214 degrees of freedom
-Multiple R-Squared: 0.0004707,	Adjusted R-squared: -0.001901 
-F-statistic: 0.1984 on 10 and 4214 DF,  p-value: 0.9964 
+Residual standard error: 0.3162 on 4214 degrees of freedom
+Multiple R-Squared: 0.0005903,	Adjusted R-squared: -0.001781 
+F-statistic: 0.2489 on 10 and 4214 DF,  p-value: 0.991 
 \end{Soutput}
 \end{Schunk}
 
@@ -627,18 +638,17 @@ as derived in the block-wise \textit{t}-tests. Note that the differences in scal
 
 \begin{figure}[t]
 \centering
-\includegraphics{OLIN-031}
+\includegraphics{OLIN-030}
 \caption{ANOVA for raw data}
 \label{anova}
 \end{figure}
 
 \begin{figure}[t]
 \centering
-\includegraphics{OLIN-032}
+\includegraphics{OLIN-031}
 \caption{ANOVA for normalised data}
 \label{anovaolin}
 \end{figure}
-
 
 
 Additionally, simple one-factorial ANOVA 
@@ -661,30 +671,30 @@ lm(formula = M ~ pin - 1)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--3.52360 -0.12385  0.02639  0.16370  1.86024 
+-3.60963 -0.12436  0.02528  0.16397  1.86083 
 
 Coefficients:
         Estimate Std. Error t value Pr(>|t|)
-pin1   0.0039128  0.0192361   0.203    0.839
-pin2  -0.0106872  0.0192361  -0.556    0.579
-pin3   0.0091040  0.0192361   0.473    0.636
-pin4  -0.0008347  0.0192361  -0.043    0.965
-pin5  -0.0054745  0.0192361  -0.285    0.776
-pin6  -0.0027475  0.0192361  -0.143    0.886
-pin7  -0.0056540  0.0192361  -0.294    0.769
-pin8   0.0163252  0.0192361   0.849    0.396
-pin9   0.0034916  0.0192361   0.182    0.856
-pin10 -0.0134907  0.0192361  -0.701    0.483
-pin11  0.0220993  0.0192361   1.149    0.251
-pin12 -0.0087947  0.0192361  -0.457    0.648
-pin13 -0.0036712  0.0192361  -0.191    0.849
-pin14  0.0009873  0.0192361   0.051    0.959
-pin15 -0.0042046  0.0192361  -0.219    0.827
-pin16 -0.0047317  0.0192361  -0.246    0.806
+pin1   0.0057223  0.0194744   0.294    0.769
+pin2   0.0009404  0.0194744   0.048    0.961
+pin3  -0.0011836  0.0194744  -0.061    0.952
+pin4  -0.0002191  0.0194744  -0.011    0.991
+pin5  -0.0077155  0.0194744  -0.396    0.692
+pin6  -0.0051030  0.0194744  -0.262    0.793
+pin7  -0.0077761  0.0194744  -0.399    0.690
+pin8   0.0144356  0.0194744   0.741    0.459
+pin9   0.0005014  0.0194744   0.026    0.979
+pin10  0.0015559  0.0194744   0.080    0.936
+pin11  0.0184692  0.0194744   0.948    0.343
+pin12 -0.0047442  0.0194744  -0.244    0.808
+pin13  0.0051594  0.0194744   0.265    0.791
+pin14 -0.0087071  0.0194744  -0.447    0.655
+pin15  0.0068432  0.0194744   0.351    0.725
+pin16 -0.0177670  0.0194744  -0.912    0.362
 
-Residual standard error: 0.3125 on 4208 degrees of freedom
-Multiple R-Squared: 0.0008749,	Adjusted R-squared: -0.002924 
-F-statistic: 0.2303 on 16 and 4208 DF,  p-value: 0.9993 
+Residual standard error: 0.3164 on 4208 degrees of freedom
+Multiple R-Squared: 0.0007643,	Adjusted R-squared: -0.003035 
+F-statistic: 0.2012 on 16 and 4208 DF,  p-value: 0.9997 
 \end{Soutput}
 \end{Schunk}
 
@@ -699,25 +709,27 @@ lm(formula = M ~ plate - 1)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--3.52229 -0.12456  0.02676  0.16503  1.84526 
+-3.59872 -0.12780  0.02606  0.16583  1.84665 
 
 Coefficients:
-         Estimate Std. Error t value Pr(>|t|)
-plate1  -0.006750   0.015944  -0.423    0.672
-plate2   0.016557   0.015944   1.038    0.299
-plate3  -0.004982   0.015944  -0.312    0.755
-plate4  -0.002405   0.015944  -0.151    0.880
-plate5  -0.002684   0.015944  -0.168    0.866
-plate6  -0.004239   0.015944  -0.266    0.790
-plate7  -0.003904   0.015944  -0.245    0.807
-plate8  -0.004605   0.015944  -0.289    0.773
-plate9   0.001493   0.015944   0.094    0.925
-plate10  0.003855   0.015944   0.242    0.809
-plate11  0.004659   0.015944   0.292    0.770
+          Estimate Std. Error t value Pr(>|t|)  
+plate1  -0.0226044  0.0161246  -1.402    0.161  
+plate2   0.0287166  0.0161246   1.781    0.075 .
+plate3  -0.0057500  0.0161246  -0.357    0.721  
+plate4   0.0018882  0.0161246   0.117    0.907  
+plate5  -0.0125836  0.0161246  -0.780    0.435  
+plate6  -0.0015375  0.0161246  -0.095    0.924  
+plate7   0.0003773  0.0161246   0.023    0.981  
+plate8  -0.0128983  0.0161246  -0.800    0.424  
+plate9   0.0157338  0.0161246   0.976    0.329  
+plate10 -0.0134014  0.0161246  -0.831    0.406  
+plate11  0.0223422  0.0161246   1.386    0.166  
+---
+Signif. codes:  0 `***' 0.001 `**' 0.01 `*' 0.05 `.' 0.1 ` ' 1 
 
-Residual standard error: 0.3124 on 4213 degrees of freedom
-Multiple R-Squared: 0.0004207,	Adjusted R-squared: -0.002189 
-F-statistic: 0.1612 on 11 and 4213 DF,  p-value: 0.9991 
+Residual standard error: 0.316 on 4213 degrees of freedom
+Multiple R-Squared: 0.002391,	Adjusted R-squared: -0.0002133 
+F-statistic: 0.9181 on 11 and 4213 DF,  p-value: 0.5216 
 \end{Soutput}
 \end{Schunk}
 
@@ -732,7 +744,7 @@ Generally, such tests are not used in interactive mode but are performed in batc
 
 
 Four permutation tests procedures were implemented in the OLIN package. 
-The functions \texttt{fdr.int} and \texttt{p.int} assess intensity-dependent
+The functions \texttt{fdr.int}  and \texttt{p.int} assess intensity-dependent
 bias. The functions \texttt{fdr.spatial} and \texttt{p.spatial} assess location-dependent
 bias. The basic procedure is similar for all four functions.
 First, a (intensity or location)  neighbourhood of spots is defined similarly to the procedure
@@ -758,9 +770,8 @@ deviations of  $\bar{M}$ are displayed in green.
 \begin{Schunk}
 \begin{Sinput}
 > FDR <- fdr.int(maA(sw)[, 3], maM(sw)[, 3], delta = 50, N = 10, 
-+     av = "median")
-> sigint.plot(maA(sw)[, 3], maM(sw)[, 3], FDR$FDRp, FDR$FDRn, c(-5, 
-+     -5))
++ av = "median")
+> sigint.plot(maA(sw)[, 3], maM(sw)[, 3], FDR$FDRp, FDR$FDRn, c(-5, -5))
 \end{Sinput}
 \end{Schunk}
 
@@ -768,7 +779,7 @@ deviations of  $\bar{M}$ are displayed in green.
 
 \begin{figure}[t]
 \centering
-\includegraphics{OLIN-036}
+\includegraphics{OLIN-035}
 \caption{MA-plot and FDRs of  intensity-dependent bias for raw data }
 \label{fdrintraw}
 \end{figure}
@@ -778,10 +789,9 @@ deviations of  $\bar{M}$ are displayed in green.
 \begin{Schunk}
 \begin{Sinput}
 > data(sw.olin)
-> FDR <- fdr.int(maA(sw.olin)[, 3], maM(sw.olin)[, 3], delta = 50, 
-+     N = 10, av = "median")
-> sigint.plot(maA(sw.olin)[, 3], maM(sw.olin)[, 3], FDR$FDRp, FDR$FDRn, 
-+     c(-5, -5))
+> FDR <- fdr.int(maA(sw.olin)[, 3], maM(sw.olin)[, 3], delta = 50, N = 10, 
++ av = "median")
+> sigint.plot(maA(sw.olin)[, 3], maM(sw.olin)[, 3], FDR$FDRp, FDR$FDRn, c(-5, -5))
 \end{Sinput}
 \end{Schunk}
 
@@ -789,7 +799,7 @@ deviations of  $\bar{M}$ are displayed in green.
 
 \begin{figure}
 \centering
-\includegraphics{OLIN-038}
+\includegraphics{OLIN-037}
 \caption{MA-plot and FDRs of  intensity-dependent bias for data normalised by OLIN }
 \label{fdrintolin}
 \end{figure}
@@ -804,8 +814,8 @@ removal of location-dependent bias by OLIN (figure~\ref{fdrspatialraw} and \ref{
 
 \begin{Schunk}
 \begin{Sinput}
-> M <- v2m(maM(sw)[, 3], Ngc = maNgc(sw), Ngr = maNgr(sw), Nsc = maNsc(sw), 
-+     Nsr = maNsr(sw), main = "MXY plot of SW-array 1")
+> M <- v2m(maM(sw)[, 3], Ngc = maNgc(sw), Ngr = maNgr(sw), Nsc = maNsc(sw),
++ Nsr = maNsr(sw), main = "MXY plot of SW-array 1")
 > FDR <- fdr.spatial(M, delta = 2, N = 10, av = "median", edgeNA = TRUE)
 > sigxy.plot(FDR$FDRp, FDR$FDRn, color.lim = c(-5, 5), main = "FDR")
 \end{Sinput}
@@ -816,7 +826,7 @@ removal of location-dependent bias by OLIN (figure~\ref{fdrspatialraw} and \ref{
 
 \begin{figure}
 \centering
-\includegraphics{OLIN-040}
+\includegraphics{OLIN-039}
 \caption{FDR of location-dependent bias for raw data }
 \label{fdrspatialraw}
 \end{figure}
@@ -824,8 +834,8 @@ removal of location-dependent bias by OLIN (figure~\ref{fdrspatialraw} and \ref{
 
 \begin{Schunk}
 \begin{Sinput}
-> M <- v2m(maM(sw.olin)[, 3], Ngc = maNgc(sw.olin), Ngr = maNgr(sw.olin), 
-+     Nsc = maNsc(sw.olin), Nsr = maNsr(sw.olin), main = "MXY plot of SW-array 1")
+> M <- v2m(maM(sw.olin)[, 3], Ngc = maNgc(sw.olin), Ngr = maNgr(sw.olin),
++  Nsc = maNsc(sw.olin),  Nsr = maNsr(sw.olin), main = "MXY plot of SW-array 1")
 > FDR <- fdr.spatial(M, delta = 2, N = 10, av = "median", edgeNA = TRUE)
 > sigxy.plot(FDR$FDRp, FDR$FDRn, color.lim = c(-5, 5), main = "FDR")
 \end{Sinput}
@@ -834,7 +844,7 @@ removal of location-dependent bias by OLIN (figure~\ref{fdrspatialraw} and \ref{
 
 \begin{figure}
 \centering
-\includegraphics{OLIN-042}
+\includegraphics{OLIN-041}
 \caption{FDR of location-dependent bias for data normalised by OLIN}
 \label{fdrspatialolin}
 \end{figure}
@@ -851,6 +861,8 @@ Another difference between the functions is the procedure to generate random per
 The function \texttt{fdr.int} and \texttt{fdr.spatial} are based on re-sampling without replacement,
 whereas  \texttt{p.int} and \texttt{p.spatial} are based on re-sampling with replacement.  
 A more detailed description of the permutation tests can be found in the \textit{help}-pages of these functions.
+
+Finally, a second set of functions  (\texttt{fdr.int2, p.int2, fdr.spatial2, p.spatial2, sigint.plot2,sigxy.plot2} has been introduced for the present version of the OLIN package. Their functionality is the same as for the first set (i.e. \texttt{fdr.int, p.int,...}). However, the input arguments  and output objects of the functions  may differ (see the  relevant \textit{help}). Both sets will be merged based on S4-style functions in future versions.
 
 
 

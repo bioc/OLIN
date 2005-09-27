@@ -4,7 +4,7 @@
 \description{This functions performs optimised local intensity-dependent normalisation (OLIN) and 
 optimised scaled intensity-dependent normalisation (OSLIN).}
 \usage{olin(object,X=NA,Y=NA,alpha=seq(0.1,1,0.1),iter=3,
-            scaling=FALSE,scale=c(0.05,0.1,0.5,1,2,10,20),weights=NA)}
+            scale=c(0.05,0.1,0.5,1,2,10,20),OSLIN=FALSE,weights=NA,...)}
            \arguments{\item{object}{object of class \dQuote{marrayRaw}}
            \item{X}{matrix with x-coordinates of spots. If X=NA, columns on array are used
             as proxies for the location in x-direction}
@@ -12,12 +12,15 @@ optimised scaled intensity-dependent normalisation (OSLIN).}
             as proxies for the location in y-direction}
            \item{alpha}{vector of alpha parameters that are tested in the GCV procedure}
            \item{iter}{number of iterations in the OLIN procedure}
-           \item{scaling}{If scaling=TRUE, a subsequent optimised scaling is performed}
-           \item{scale}{vector of scale parameters that are tested in a GCV procedure.}
+           \item{scale}{vector of scale parameters that are tested in a GCV procedure for spatial regression. This 
+             define the amount of smoothing in X-direction with respect to smoothing in Y-direction.}
+           \item{OSLIN}{If OSLIN=TRUE, subsequent scaling of the range of M accross the array is performed.}
 	   \item{weights}{matrix of weights for  local regression. 
                           Rows correspond to the spotted probe sequences, columns to arrays in the batch.
                           These may be derived from the matrix of  spot quality weights as defined 
-                          for \dQuote{maRaw} objects.}	
+                          for \dQuote{maRaw} objects. Weights can be also used if the normalisation should
+                          be based on a set of selected genes that are assumed to be not differentially expressed.}
+           \item{...}{Further arguments for \code{locfit} function.}		
 }         
 \details{
 OLIN and OSLIN are based on iterative local regression and incorporate optimisation of model parameters.
@@ -30,7 +33,7 @@ Y-direction compared to smoothing in X-direction.
 The parameter \code{scale} can be of arbitrary value. 
 The choice of model parameters \code{alpha} and \code{scale} for local regression is crucial for the efficiency and 
 quality of normalization. To optimize the model parameters, a general cross-validation procedure (GCV) is applied.
-The arguments \code{alpha} and \code{scale} define the parameters values which are tested in the GCV. 
+The arguments \code{alpha} and \code{scale} define the parameters values which are tested in the GCV. OSLIN comprises the OLIN procedure with a subsequent optimized scaling of the range of logged intensity ratios across the spatial dimensions of the array. 
 Detailed information about OLIN and OSLIN can be found in the package documentation and in the  reference stated below. 
 The weights argument specifies the influence of the single spots on the local regression. To exclude 
 spots being used for the local regression (such as control spots), set their corresponding weight to zero. 
@@ -40,8 +43,14 @@ is balanced) and that genes are randomly spotted across the array. If these assu
 regression can lead to an underestimation of differential expression.  OSLIN is especially sensitive to violations  of these assumptions. However, this
 sensitivity can be decreased if the minimal \code{alpha}-value is increased. Minimal \code{alpha} defines the 
 smallest scale used for local regression. Increasing \code{alpha} can reduce the influence of localised 
-artifacts as a larger fraction of  data points is included. 
+artifacts as a larger fraction of  data points is included.  Alternative normalisation functions such
+as \code{\link{oin}}, \code{\link{lin}} and \code{\link{ino}} might also be used for a more conservative fit.
  
+
+If the normalisation should be based on set of genes assumed to be not differentially expressed (\emph{house-keeping
+genes}), weights can be used for local regression. In this case, all weights are set to zero except for
+the house-keeping genes for which weights are set to one. In order to achieve a reliable regression, it is important, however, that there is a sufficient number of house-keeping genes that are distributed over the whole expression range
+and spotted accross the whole array.
 
 It is also important to note that OLIN/OSLIN is fairly efficient in removing intensity- and spatial-dependent dye bias, so that normalised  data will look quite \dQuote{good} after normalisation independently of the true underlying data quality. Normalisation by local regression assumes smoothness of bias. Therefore, localised artifacts such as scratches, edge effects or bubbles should be avoided. Spots of these areas should be flagged (before normalisation is applied) to ensure data integrity. To stringently detect artifacts, the OLIN functions \code{fdr.int, fdr.spatial, p.int} and \code{p.spatial} can be used.}
 
@@ -52,8 +61,15 @@ It is also important to note that OLIN/OSLIN is fairly efficient in removing int
 \enumerate{
 \item M.Futschik and T.Crompton (2004) \emph{Model selection and efficiency testing for normalization of cDNA microarray data},
 \strong{Genome Biology}, 5:R60
-\item  OLIN web-page: \url{http://itb.biologie.hu-berlin.de/~futschik/software/R/OLIN}}}
-\seealso{\code{\link[marray]{maNorm}}, \code{\link[locfit]{locfit}}, \code{\link[locfit]{gcv}}}
+\item M.Futschik and T.Crompton (2005) \emph{OLIN: Optimized
+      normalization, visualization and quality testing for two-channel
+      microarray data}, \strong{Bioinformatics}, 21(8):1724-6    
+    \item  OLIN web-page:
+           \url{http://itb.biologie.hu-berlin.de/~futschik/software/R/OLIN}}}
+
+       
+\seealso{\code{\link{maNorm}}, \code{\link{locfit}}, \code{\link{gcv}}, \code{\link{oin}},
+  \code{\link{lin}}}
 \examples{
 
 
@@ -62,21 +78,21 @@ It is also important to note that OLIN/OSLIN is fairly efficient in removing int
   data(sw.xy)
 
 # OPTIMISED LOCAL INTENSITY-DEPENDENT NORMALISATION OF FIRST ARRAY
- norm.olin <- olin(sw[,1],X=sw.xy$X[,1],Y=sw.xy$Y[,1])
+  norm.olin <- olin(sw[,1],X=sw.xy$X[,1],Y=sw.xy$Y[,1])
 
 # MA-PLOT OF NORMALISATION RESULTS OF FIRST ARRAY
- plot(maA(norm.olin),maM(norm.olin),main="OLIN")
+  plot(maA(norm.olin),maM(norm.olin),main="OLIN")
  
 # CORRESPONDING MXY-PLOT
-  Mtmp <- mxy.plot(maM(norm.olin)[,1],Ngc=maNgc(norm.olin),Ngr=maNgr(norm.olin),
+  mxy.plot(maM(norm.olin)[,1],Ngc=maNgc(norm.olin),Ngr=maNgr(norm.olin),
                 Nsc=maNsc(norm.olin),Nsr=maNsr(norm.olin),main="OLIN")
 
 # OPTIMISED SCALED LOCAL INTENSITY-DEPENDENT NORMALISATION
-  norm.oslin <- olin(sw[,1],X=sw.xy$X[,1],Y=sw.xy$Y[,1],scaling=TRUE)
+  norm.oslin <- olin(sw[,1],X=sw.xy$X[,1],Y=sw.xy$Y[,1],OSLIN=TRUE)
 # MA-PLOT
   plot(maA(norm.oslin),maM(norm.oslin),main="OSLIN")
 # MXY-PLOT
-  Mtmp <- mxy.plot(maM(norm.oslin)[,1],Ngc=maNgc(norm.oslin),Ngr=maNgr(norm.oslin),
+  mxy.plot(maM(norm.oslin)[,1],Ngc=maNgc(norm.oslin),Ngr=maNgr(norm.oslin),
                  Nsc=maNsc(norm.oslin),Nsr=maNsr(norm.oslin),main="OSLIN")
 
 }

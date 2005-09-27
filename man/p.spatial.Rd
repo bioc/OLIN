@@ -20,7 +20,7 @@ by (adjusted) p-values derived in one-sided permutation test.}
           The null hypothesis states random spotting i.e. the independence of log ratio \code{M} 
           and spot location. First, a neighbourhood of a spot is defined  by a two dimensional square window 
           of chosen size ((2*delta+1)x(2*delta+1)). Next, a test statistic is defined   by calculating 
-           the \emph{median} or \emph{mean} of \code{M} (\eqn{\bar{M}}{}) for  \code{N} random  samples
+           the \emph{median} or \emph{mean} of \code{M} for  \code{N} random  samples
            of size  ((2*delta+1)x(2*delta+1)). Note that this scheme defines a sampling with replacement
            procedure whereas  sampling without replacement is used for \code{fdr.spatial}.  
           Comparing the empirical distribution of  \eqn{\bar{M}}{median/mean of \code{M}}

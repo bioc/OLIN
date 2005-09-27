@@ -1,6 +1,6 @@
 \name{anovaplate}
 \alias{anovaplate}
-\title{One-factorial ANOVA assessing pin-dependent bias}
+\title{One-factorial ANOVA assessing pin-dependent bias.}
 \description{This function performs an one-factorial analysis of variance assessing  microtiter plate-dependent bias 
 for a single array}
 \usage{anovaplate(obj,index)}

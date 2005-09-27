@@ -1,7 +1,7 @@
 mxy.abs.plot <- function (V, Ngc, Ngr, Nsc, Nsr, color.lim = c(0, 1), color = "red", 
     xlab = "Columns", ylab = "Rows", ...) 
 {
-
+    opo <- par(no.readonly = TRUE)
     V <- abs(V)
 
     ### CONVERSION FROM VECTOR TO MATRIX
@@ -42,6 +42,7 @@ mxy.abs.plot <- function (V, Ngc, Ngr, Nsc, Nsr, color.lim = c(0, 1), color = "r
         col = colo, zlim = color.lim, xlab = xlab, ylab = ylab, 
         ...)
     colorbar.mxy.abs(color.lim = color.lim, color = color, ylablim = FALSE)
+    par(opo)
 }
 ###########################################################################
 

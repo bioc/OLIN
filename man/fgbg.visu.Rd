@@ -14,7 +14,7 @@
          All intensities are log2-transformed. The colour range for plotting is defined by 0 and the maximum of 
          the logged intensity for each sub-graph separately.}
 \author{Matthias E. Futschik  (\url{http://itb.biologie.hu-berlin.de/~futschik})}
-\seealso{\code{\link[marray]{marrayRaw}}}
+\seealso{\code{\link{marrayRaw}}}
 \examples{
 # LOADING RAW DATA 
 data(sw)
