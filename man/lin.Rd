@@ -2,7 +2,7 @@
 \alias{lin} 
 \title{Local intensity-dependent normalisation of two-colour microarrays} 		
 \description{This functions performs local intensity-dependent normalisation (LIN)}
-\usage{lin(object,X=NA,Y=NA,alpha=0.3,iter=2,scale=TRUE,weights=NA,...)}
+\usage{lin(object,X=NA,Y=NA,alpha=0.3,iter=2,scale=TRUE,weights=NA,bg.corr="sub",...)}
            \arguments{\item{object}{object of class \dQuote{marrayRaw}}
            \item{X}{matrix with x-coordinates of spots. If X=NA, columns on array are used
             as proxies for the location in x-direction}
@@ -16,6 +16,8 @@
                           Rows correspond to the spotted probe sequences, columns to arrays in the batch.
                           These may be derived from the matrix of  spot quality weights as defined 
                           for \dQuote{maRaw} objects.}
+	   \item{bg.corr}{backcorrection method (for \dQuote{marrayRaw} objects)  :
+			\dQuote{none} or \dQuote{sub}(default).}
          \item{...}{Further arguments for \code{locfit} function.}		
 }         
 \details{

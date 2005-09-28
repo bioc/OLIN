@@ -1,4 +1,4 @@
-lin <- function (object, X = NA, Y = NA, alpha  = 0.3, iter=2, scale = TRUE, weights= NA, ...) 
+lin <- function (object, X = NA, Y = NA, alpha  = 0.3, iter=2, scale = TRUE, weights= NA,bg.corr="sub", ...) 
 {
 
     Mn <- matrix(NA, nrow = dim(maM(object))[1], ncol = dim(maM(object))[2])
@@ -31,15 +31,24 @@ lin <- function (object, X = NA, Y = NA, alpha  = 0.3, iter=2, scale = TRUE, wei
     X <- as.matrix(X)
     Y <- as.matrix(Y)
 }
-    ### NORMALISATION 
-    for (i in 1:dim(maA(object))[[2]]) {
-        Atmp <- maA(object)[, i]
-        Mtmp <- maM(object)[, i]
+    ### NORMALISATION
+    if (bg.corr=="none" & class(object) =="marrayRaw"){
+        A <- 0.5*(log2(maRf(object)) + log2(maGf(object)))
+        M <- log2(maRf(object)) -  log2(maGf(object)) 
+      } else {
+        A <- maA(object)
+        M <- maM(object)
+      }
+
+  
+    for (i in 1:dim(A)[[2]]) {
+        Atmp <- A[, i]
+        Mtmp <- M[, i]
         Xtmp <- X[, i]
         Ytmp <- Y[, i]
        for (ii in 1:iter) {
             lo <- locfit(Mtmp ~ Atmp, alpha = alpha, weights=weights[,i],...)
-            Atmp[is.na(maA(object)[, i])] <- 0
+            Atmp[is.na(A[, i])] <- 0
             Mtmp <- Mtmp - predict.locfit(lo, data.frame(Atmp = Atmp))
             Mtmp[is.na(maA(object)[, i])] <- NA
             
@@ -49,14 +58,14 @@ lin <- function (object, X = NA, Y = NA, alpha  = 0.3, iter=2, scale = TRUE, wei
             Mtmp <- Mtmp - predict.locfit(lo, data.frame(Xtmp = Xtmp, 
                 Ytmp = Ytmp))
 
-            Mtmp[is.na(maA(object)[, i])] <- NA
+            Mtmp[is.na(A[, i])] <- NA
         
            
      }
             Mn[, i] <- Mtmp
     }
  
-    object2 <- new("marrayNorm", maA = maA(object), maM = Mn, 
+    object2 <- new("marrayNorm", maA = A, maM = Mn, 
         maLayout = maLayout(object), maGnames = maGnames(object), 
         maTargets = maTargets(object), maNotes = maNotes(object), 
         maNormCall = match.call())

@@ -1,5 +1,5 @@
 olin <- function (object, X = NA, Y = NA, alpha = seq(0.1, 1, 0.1), 
-    iter = 3,  scale = c(0.05, 0.1, 0.5, 1, 2,10, 20), OSLIN  = FALSE, weights= NA,...) 
+    iter = 3,  scale = c(0.05, 0.1, 0.5, 1, 2,10, 20), OSLIN  = FALSE, weights= NA,bg.corr="sub",...) 
 {
     Mn <- matrix(NA, nrow = dim(maM(object))[1], ncol = dim(maM(object))[2])
     Layout <- maLayout(object)
@@ -31,10 +31,21 @@ olin <- function (object, X = NA, Y = NA, alpha = seq(0.1, 1, 0.1),
     X <- as.matrix(X)
     Y <- as.matrix(Y)
 }
-    ### NORMALISATION 
+    ### NORMALISATION
+
+  if (bg.corr=="none" & class(object) =="marrayRaw"){
+        A <- 0.5*(log2(maRf(object)) + log2(maGf(object)))
+        M <- log2(maRf(object)) -  log2(maGf(object)) 
+      } else {
+        A <- maA(object)
+        M <- maM(object)
+      }
+
+  
+    
     for (i in 1:dim(maA(object))[[2]]) {
-        Atmp <- maA(object)[, i]
-        Mtmp <- maM(object)[, i]
+        Atmp <- A[, i]
+        Mtmp <- M[, i]
         Xtmp <- X[, i]
         Ytmp <- Y[, i]
         CVA <- real(length = length(alpha)) + NA
@@ -44,9 +55,9 @@ olin <- function (object, X = NA, Y = NA, alpha = seq(0.1, 1, 0.1),
             }
             alphaopt <- alpha[(which(min(CVA) == CVA))]
             lo <- locfit(Mtmp ~ Atmp, alpha = alphaopt, weights=weights[,i],...)
-            Atmp[is.na(maA(object)[, i])] <- 0
+            Atmp[is.na(A[, i])] <- 0
             Mtmp <- Mtmp - predict.locfit(lo, data.frame(Atmp = Atmp))
-            Mtmp[is.na(maA(object)[, i])] <- NA
+            Mtmp[is.na(A[, i])] <- NA
             CVA <- matrix(NA, ncol = length(scale), nrow = length(alpha))
             for (j in 1:length(alpha)) {
                 for (jj in 1:length(scale)) {
@@ -58,14 +69,14 @@ olin <- function (object, X = NA, Y = NA, alpha = seq(0.1, 1, 0.1),
             scaleopt <- scale[(which(min(CVA) == CVA) - 1)%/%length(alpha) +  1]
             lo <- locfit(Mtmp ~ Xtmp * Ytmp,  weights=weights[,i],alpha = alphaopt,scale = c(1, scaleopt),...)
             Mtmp <- Mtmp - predict.locfit(lo, data.frame(Xtmp = Xtmp,Ytmp = Ytmp))
-            Mtmp[is.na(maA(object)[, i])] <- NA
+            Mtmp[is.na(A[, i])] <- NA
         }
         Mn[, i] <- Mtmp
 
         ### OSLIN
         if (OSLIN) {
             absMtmp <- abs(Mtmp)
-            absMtmp[is.na(maA(object)[, i])] <- NA
+            absMtmp[is.na(A[, i])] <- NA
             for (j in 1:length(alpha)) {
                 for (jj in 1:length(scale)) {
                   CVA[j, jj] <- gcv(absMtmp ~ Xtmp + Ytmp, data = data.frame(Xtmp = Xtmp, 
@@ -87,7 +98,7 @@ olin <- function (object, X = NA, Y = NA, alpha = seq(0.1, 1, 0.1),
         }
     }
     
-    object2 <- new("marrayNorm", maA = maA(object), maM = Mn, 
+    object2 <- new("marrayNorm", maA = A, maM = Mn, 
         maLayout = maLayout(object), maGnames = maGnames(object), 
         maTargets = maTargets(object), maNotes = maNotes(object), 
         maNormCall = match.call())

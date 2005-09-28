@@ -5,9 +5,10 @@
 
 \documentclass[a4paper,11pt]{article}
 \usepackage{a4wide}
-\title{Introduction to OLIN package \\ \large{-- Version 1.4 --}}
+\title{Introduction to OLIN package}
 \author{Matthias E. Futschik\\ Institute for Theoretical Biology,  Humboldt-University\\ URL: \textit{http://itb.biologie.hu-berlin.de/$\sim$futschik/software/R/OLIN}}
-\usepackage{C:/Programme/R/rw2000/share/texmf/Sweave}
+
+\usepackage{/usr/lib/R/share/texmf/Sweave}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -34,8 +35,7 @@ Additionally, several procedures to assess the efficiencies of normalisation are
 in the package. 
 
 A graphical user interface for OLIN has been implemented in the package OLINgui, that
-can be downloaded from the OLIN webpage (\textit{http://itb.biologie.hu-berlin.de/$\sim$futschik/
-software/R/OLIN}).
+can be downloaded from the OLIN webpage (\textit{http://itb.biologie.hu-berlin.de/$\sim$futschik/software/R/OLIN}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%
@@ -129,13 +129,13 @@ layout as defined for \textit{marrayRaw/marrayNorm} objects.
 
 \begin{Schunk}
 \begin{Sinput}
-> mxy.plot(maM(sw)[, 3], Ngc = maNgc(sw), Ngr = maNgr(sw), Nsc = maNsc(sw),
-+ Nsr = maNsr(sw))
+> mxy.plot(maM(sw)[, 3], Ngc = maNgc(sw), Ngr = maNgr(sw), Nsc = maNsc(sw), 
++     Nsr = maNsr(sw))
 \end{Sinput}
 \end{Schunk}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}
+\begin{figure}[t]
 \centering
 \includegraphics{OLIN-007}
 \caption{MXY-plot of SW480/620 array 3 with columns and rows as proxies for spatial location}
@@ -152,15 +152,14 @@ To plot $abs(M)$, the function \texttt{mxy.abs.plot} can be employed :
 \begin{Schunk}
 \begin{Sinput}
 > data(sw.xy)
-> mxy.abs.plot(maM(sw)[, 3], Ngc = maNgc(sw), Ngr = maNgr(sw), Nsc = maNsc(sw),
-+  Nsr = maNsr(sw))
+> mxy.abs.plot(maM(sw)[, 3], Ngc = maNgc(sw), Ngr = maNgr(sw), 
++     Nsc = maNsc(sw), Nsr = maNsr(sw))
 \end{Sinput}
 \end{Schunk}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}
+\begin{figure}[t]
 \centering
-
 \includegraphics{OLIN-009}
 \caption{MXY-plot of absolute logged fold changes}
 \label{mxyabsplot}
@@ -180,12 +179,12 @@ Using the function \texttt{mxy2.plot}, such plots can be generated (figure~\ref{
 \begin{Sinput}
 > data(sw.xy)
 > mxy2.plot(maM(sw)[, 3], X = sw.xy$X[, 3], Y = sw.xy$Y[, 3], Ngc = maNgc(sw), 
-+ Ngr = maNgr(sw), Nsc = maNsc(sw), Nsr = maNsr(sw))
++     Ngr = maNgr(sw), Nsc = maNsc(sw), Nsr = maNsr(sw))
 \end{Sinput}
 \end{Schunk}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}
+\begin{figure}[t]
 \centering
 \includegraphics{OLIN-011}
 \caption{MXY plot of SW480/620 array 1}
@@ -230,7 +229,7 @@ are based  on iterative local regression and parameter selection by GCV.
 The OLIN (and OSLIN) are implemented in R by the function \texttt{olin}:
 
 \begin{quote}
-\texttt{olin(object,X,Y,alpha,iter,OSLIN,scale,weights,...)}
+\texttt{olin(object,X,Y,alpha,iter,OSLIN,scale,weights,bg.corr,...)}
 \end{quote}
 
 
@@ -240,7 +239,7 @@ The OLIN (and OSLIN) are implemented in R by the function \texttt{olin}:
                          data of the microarray experiment such as spot intensities and array layout
                          for a batch of microarrays.
                          To generate such an object, see the \emph{marryClasses} documentation.
-           \item[X]      Matrix with x-coordinates of spots. The location is spots detected by scanner
+           \item[X]      matrix with x-coordinates of spots. Each column corresponds to one array in the batch. The location is spots detected by scanner
                          is usually 
                          found in the output file program of  the scanning program. 
                           If X=NA, the spotted columns on the  array are used as proxies for the location in x-direction (\emph{default})
@@ -261,11 +260,18 @@ The OLIN (and OSLIN) are implemented in R by the function \texttt{olin}:
                           for the local regression by assigning them to zero. Weights can be stored
                           in the \texttt{maW} slot of  \emph{marrayRaw} objects. Defaults is NA resulting
                           in uniform weigths of all spots. 
+            \item[bg.corr] backcorrection method (for \emph{marrayRaw} objects)  :
+			\emph{none} for no background correction or \emph{sub} 
+                          for background subtraction (default).
+
           \item[...] Further arguments passed to the  \texttt{locfit} function.	
       \end{description}
 
 
 For illustration, we apply the OLIN scheme to normalise the third array of the SW480/620 data set. 
+(Note that the function is not restricted to single slide normalisation but normalises all arrays
+in the \emph{marray} object.
+
 \begin{Schunk}
 \begin{Sinput}
 > norm.olin <- olin(sw[, 3], X = sw.xy$X[, 3], Y = sw.xy$Y[, 3])
@@ -284,7 +290,7 @@ applied in the next section will confirm  these findings.
 \begin{Sinput}
 > plot(maA(norm.olin), maM(norm.olin), main = "OLIN", pch = ".")
 > mxy.plot(maM(norm.olin), Ngc = maNgc(norm.olin), Ngr = maNgr(norm.olin), 
-+   Nsc = maNsc(norm.olin), Nsr = maNsr(norm.olin), main = "OLIN")
++     Nsc = maNsc(norm.olin), Nsr = maNsr(norm.olin), main = "OLIN")
 \end{Sinput}
 \end{Schunk}
 
@@ -316,16 +322,20 @@ that two or three iterations are already sufficient for normalisation (figure~\r
 
 \begin{Schunk}
 \begin{Sinput}
-> norm.olin.1 <- olin(sw[, 3], X = sw.xy$X[, 3], Y = sw.xy$Y[, 3], iter = 1)
-> norm.olin.2 <- olin(norm.olin.1, X = sw.xy$X[, 3], Y = sw.xy$Y[, 3], iter = 1)
-> norm.olin.3 <- olin(norm.olin.2, X = sw.xy$X[, 3], Y = sw.xy$Y[, 3], iter = 1)
-> M <- cbind(maM(sw)[, 3], maM(norm.olin.1), maM(norm.olin.2), maM(norm.olin.3))
+> norm.olin.1 <- olin(sw[, 3], X = sw.xy$X[, 3], Y = sw.xy$Y[, 
++     3], iter = 1)
+> norm.olin.2 <- olin(norm.olin.1, X = sw.xy$X[, 3], Y = sw.xy$Y[, 
++     3], iter = 1)
+> norm.olin.3 <- olin(norm.olin.2, X = sw.xy$X[, 3], Y = sw.xy$Y[, 
++     3], iter = 1)
+> M <- cbind(maM(sw)[, 3], maM(norm.olin.1), maM(norm.olin.2), 
++     maM(norm.olin.3))
 > pairs(M, labels = c("raw", "1.Iter.", "2.Iter.", "3.Iter."))
 \end{Sinput}
 \end{Schunk}
 
 
-\begin{figure}
+\begin{figure}[t]
 \centering
 \resizebox{0.8\textwidth}{!}{\includegraphics{scatter.png}}
 \caption{Convergence of iterative normalisation }
@@ -346,7 +356,7 @@ spotting of arrayed genes. To apply OSLIN:
 \begin{Schunk}
 \begin{Sinput}
 > norm.oslin <- olin(sw[, 3], X = sw.xy$X[, 3], Y = sw.xy$Y[, 3], 
-+ alpha = c(0.1, 1, 0.1), OSLIN = TRUE)
++     alpha = c(0.1, 1, 0.1), OSLIN = TRUE)
 \end{Sinput}
 \end{Schunk}
 
@@ -361,14 +371,14 @@ The variability of log ratios \emph{M} appears to be even across the array.
 \begin{Sinput}
 > plot(maA(norm.oslin), maM(norm.oslin), main = "OSLIN", pch = ".")
 > mxy.plot(maM(norm.oslin), Ngc = maNgc(norm.oslin), Ngr = maNgr(norm.oslin), 
- + Nsc = maNsc(norm.oslin), Nsr = maNsr(norm.oslin), main = "OSLIN")
++     Nsc = maNsc(norm.oslin), Nsr = maNsr(norm.oslin), main = "OSLIN")
 \end{Sinput}
 \end{Schunk}
 
 
 %%%%%%%%%%%%%%%%
 
-\begin{figure}
+\begin{figure}[t]
 \centering
 \includegraphics{OLIN-019}
 \caption{MA-plot of array normalized by  OSLIN }
@@ -388,7 +398,7 @@ and are spotted accross the whole array.
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{figure}
+\begin{figure}[t]
 \centering
 \includegraphics{OLIN-020}
 \caption{MXY-plot of array normalized by  OSLIN }
@@ -471,7 +481,7 @@ replicate array (figures~\ref{disolin},ref{disbas}):
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[t]
 \centering
 \includegraphics{OLIN-023}
 \caption{Distribution of M for SW480/620 arrays after OLIN and between-array scaling}
@@ -523,11 +533,11 @@ Similarly, the location-dependent bias can be assessed:
 
 \begin{Schunk}
 \begin{Sinput}
-> MM <- v2m(maM(sw)[, 3], Ngc = maNgc(sw), Ngr = maNgr(sw), Nsc = maNsc(sw),
-+ Nsr = maNsr(sw), visu = FALSE)
+> MM <- v2m(maM(sw)[, 3], Ngc = maNgc(sw), Ngr = maNgr(sw), Nsc = maNsc(sw), 
++     Nsr = maNsr(sw), visu = FALSE)
 > MMav <- ma.matrix(MM, av = "median", delta = 2, edgeNA = FALSE)
 > Mav <- m2v(MMav, Ngc = maNgc(sw), Ngr = maNgr(sw), Nsc = maNsc(sw), 
-+ Nsr = maNsr(sw), visu = FALSE)
++     Nsr = maNsr(sw), visu = FALSE)
 > cor(Mav, M, use = "pairwise.complete.obs")
 \end{Sinput}
 \begin{Soutput}
@@ -770,8 +780,9 @@ deviations of  $\bar{M}$ are displayed in green.
 \begin{Schunk}
 \begin{Sinput}
 > FDR <- fdr.int(maA(sw)[, 3], maM(sw)[, 3], delta = 50, N = 10, 
-+ av = "median")
-> sigint.plot(maA(sw)[, 3], maM(sw)[, 3], FDR$FDRp, FDR$FDRn, c(-5, -5))
++     av = "median")
+> sigint.plot(maA(sw)[, 3], maM(sw)[, 3], FDR$FDRp, FDR$FDRn, c(-5, 
++     -5))
 \end{Sinput}
 \end{Schunk}
 
@@ -789,9 +800,10 @@ deviations of  $\bar{M}$ are displayed in green.
 \begin{Schunk}
 \begin{Sinput}
 > data(sw.olin)
-> FDR <- fdr.int(maA(sw.olin)[, 3], maM(sw.olin)[, 3], delta = 50, N = 10, 
-+ av = "median")
-> sigint.plot(maA(sw.olin)[, 3], maM(sw.olin)[, 3], FDR$FDRp, FDR$FDRn, c(-5, -5))
+> FDR <- fdr.int(maA(sw.olin)[, 3], maM(sw.olin)[, 3], delta = 50, 
++     N = 10, av = "median")
+> sigint.plot(maA(sw.olin)[, 3], maM(sw.olin)[, 3], FDR$FDRp, FDR$FDRn, 
++     c(-5, -5))
 \end{Sinput}
 \end{Schunk}
 
@@ -814,8 +826,8 @@ removal of location-dependent bias by OLIN (figure~\ref{fdrspatialraw} and \ref{
 
 \begin{Schunk}
 \begin{Sinput}
-> M <- v2m(maM(sw)[, 3], Ngc = maNgc(sw), Ngr = maNgr(sw), Nsc = maNsc(sw),
-+ Nsr = maNsr(sw), main = "MXY plot of SW-array 1")
+> M <- v2m(maM(sw)[, 3], Ngc = maNgc(sw), Ngr = maNgr(sw), Nsc = maNsc(sw), 
++     Nsr = maNsr(sw), main = "MXY plot of SW-array 1")
 > FDR <- fdr.spatial(M, delta = 2, N = 10, av = "median", edgeNA = TRUE)
 > sigxy.plot(FDR$FDRp, FDR$FDRn, color.lim = c(-5, 5), main = "FDR")
 \end{Sinput}
@@ -834,8 +846,8 @@ removal of location-dependent bias by OLIN (figure~\ref{fdrspatialraw} and \ref{
 
 \begin{Schunk}
 \begin{Sinput}
-> M <- v2m(maM(sw.olin)[, 3], Ngc = maNgc(sw.olin), Ngr = maNgr(sw.olin),
-+  Nsc = maNsc(sw.olin),  Nsr = maNsr(sw.olin), main = "MXY plot of SW-array 1")
+> M <- v2m(maM(sw.olin)[, 3], Ngc = maNgc(sw.olin), Ngr = maNgr(sw.olin), 
++     Nsc = maNsc(sw.olin), Nsr = maNsr(sw.olin), main = "MXY plot of SW-array 1")
 > FDR <- fdr.spatial(M, delta = 2, N = 10, av = "median", edgeNA = TRUE)
 > sigxy.plot(FDR$FDRp, FDR$FDRn, color.lim = c(-5, 5), main = "FDR")
 \end{Sinput}

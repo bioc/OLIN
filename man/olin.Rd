@@ -4,11 +4,15 @@
 \description{This functions performs optimised local intensity-dependent normalisation (OLIN) and 
 optimised scaled intensity-dependent normalisation (OSLIN).}
 \usage{olin(object,X=NA,Y=NA,alpha=seq(0.1,1,0.1),iter=3,
-            scale=c(0.05,0.1,0.5,1,2,10,20),OSLIN=FALSE,weights=NA,...)}
-           \arguments{\item{object}{object of class \dQuote{marrayRaw}}
-           \item{X}{matrix with x-coordinates of spots. If X=NA, columns on array are used
+            scale=c(0.05,0.1,0.5,1,2,10,20),OSLIN=FALSE,weights=NA,bg.corr="sub",...)}
+           \arguments{\item{object}{object of class \dQuote{marrayRaw}
+           or \dQuote{marrayNorm} corresponding to a single array or a batch of
+           arrays.}
+           \item{X}{matrix with x-coordinates of spots of the arrays in \code{object}. Each column
+           includes the x-coodinates for the spots of one array.  If X=NA, columns on array are used
             as proxies for the location in x-direction}
-           \item{Y}{matrix with y-coordinates of spots. If Y=NA, rows on array are used
+           \item{Y}{matrix with y-coordinates of spots.  Each column
+           includes the y-coodinates for the spots of one array.If Y=NA, rows on array are used
             as proxies for the location in y-direction}
            \item{alpha}{vector of alpha parameters that are tested in the GCV procedure}
            \item{iter}{number of iterations in the OLIN procedure}
@@ -19,7 +23,12 @@ optimised scaled intensity-dependent normalisation (OSLIN).}
                           Rows correspond to the spotted probe sequences, columns to arrays in the batch.
                           These may be derived from the matrix of  spot quality weights as defined 
                           for \dQuote{maRaw} objects. Weights can be also used if the normalisation should
-                          be based on a set of selected genes that are assumed to be not differentially expressed.}
+                          be based on a set of selected genes that are
+                          assumed to be not differentially expressed.}
+		 \item{bg.corr}{backcorrection method (for \dQuote{marrayRaw} objects)  :
+		   \dQuote{none} for no background correction or
+		   \dQuote{sub}
+		   for background subtraction (default).}		
            \item{...}{Further arguments for \code{locfit} function.}		
 }         
 \details{

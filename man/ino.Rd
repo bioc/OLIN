@@ -2,13 +2,16 @@
 \alias{ino}
 \title{Intensity-dependent normalisation of two-colour microarrays} 		
 \description{This functions performs intensity-dependent normalisation based on local regression by locfit.}
-\usage{ino(object,alpha=0.3,weights=NA,...)}
-           \arguments{\item{object}{object of class \dQuote{marrayRaw}}
+\usage{ino(object,alpha=0.3,weights=NA,bg.corr="sub",...)}
+           \arguments{\item{object}{object of class \dQuote{marrayRaw}
+           or \dQuote{marrayNorm} }
            \item{alpha}{smoothing parameter}
            \item{weights}{matrix of weights for  local regression. 
                           Rows correspond to the spotted probe sequences, columns to arrays in the batch.
                           These may be derived from the matrix of  spot quality weights as defined 
                           for \dQuote{maRaw} objects.}
+	 \item{bg.corr}{backcorrection method (for \dQuote{marrayRaw} objects)  :
+			\dQuote{none} or \dQuote{sub}(default).}
           \item{...}{Further arguments for \code{locfit} function.}	
 }         
 \details{The function \code{ino} regresses the average logged fold changes (\emph{M}) with respect to the average
