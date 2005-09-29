@@ -1,6 +1,6 @@
 olin <- function (object, X = NA, Y = NA, alpha = seq(0.1, 1, 0.1), 
     iter = 3,  scale = c(0.05, 0.1, 0.5, 1, 2,10, 20), OSLIN  = FALSE, weights= NA,
-                  genepix=FALSE,bg.corr="sub",...) 
+                  genepix=FALSE,bg.corr="subtract",...) 
 {
     Mn <- matrix(NA, nrow = dim(maM(object))[1], ncol = dim(maM(object))[2])
     Layout <- maLayout(object)
@@ -38,17 +38,22 @@ olin <- function (object, X = NA, Y = NA, alpha = seq(0.1, 1, 0.1),
     X <- as.matrix(X)
     Y <- as.matrix(Y)
 }
-    ### NORMALISATION
-
-  if (bg.corr=="none" & class(object) =="marrayRaw"){
+  # BACKGROUND CORRECTION 
+  if ((bg.corr=="half" | bg.corr=="minimum" |  bg.corr=="movingmin" |
+       bg.corr=="edwards" | bg.corr=="normexp") & class(object) =="marrayRaw"){
+          object.b <- backgroundCorrect2(object,method=bg.corr)
+          A <- maA(object.b)
+          M <- maM(object.b)
+  } else { if (bg.corr=="none" & class(object) =="marrayRaw"){
         A <- 0.5*(log2(maRf(object)) + log2(maGf(object)))
         M <- log2(maRf(object)) -  log2(maGf(object)) 
       } else {
         A <- maA(object)
         M <- maM(object)
       }
-
-  
+         }
+    
+    ### NORMALISATION
     
     for (i in 1:dim(maA(object))[[2]]) {
         Atmp <- A[, i]

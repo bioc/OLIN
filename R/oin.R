@@ -1,4 +1,4 @@
-oin <- function (object,alpha = seq(0.1, 1, 0.1),weights= NA, bg.corr="sub", ...) 
+oin <- function (object,alpha = seq(0.1, 1, 0.1),weights= NA, bg.corr="subtract", ...) 
 {
     Mn <- matrix(NA, nrow = dim(maM(object))[1], ncol = dim(maM(object))[2])
  
@@ -9,11 +9,12 @@ oin <- function (object,alpha = seq(0.1, 1, 0.1),weights= NA, bg.corr="sub", ...
        # cat("NOTE: Spot weights adjusted to 1\n")
     }
 
-  ### NORMALISATION 
+  ### NORMALISATION
+    
   if (bg.corr=="none" & class(object) =="marrayRaw"){
         A <- 0.5*(log2(maRf(object)) + log2(maGf(object)))
         M <- log2(maRf(object)) -  log2(maGf(object)) 
-      } else {
+      } else  {        
         A <- maA(object)
         M <- maM(object)
       }

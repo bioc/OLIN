@@ -1,4 +1,4 @@
-ino <- function(object, alpha=0.3, weights= NA,bg.corr="sub",...){
+ino <- function(object, alpha=0.3, weights= NA,bg.corr="subtract",...){
 
     Mn <- matrix(NA, nrow = dim(maM(object))[1], ncol = dim(maM(object))[2])
 

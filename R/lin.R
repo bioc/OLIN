@@ -1,4 +1,4 @@
-lin <- function (object, X = NA, Y = NA, alpha  = 0.3, iter=2, scale = TRUE, weights= NA,bg.corr="sub", ...) 
+lin <- function (object, X = NA, Y = NA, alpha  = 0.3, iter=2, scale = TRUE, weights= NA,bg.corr="subtract", ...) 
 {
 
     Mn <- matrix(NA, nrow = dim(maM(object))[1], ncol = dim(maM(object))[2])

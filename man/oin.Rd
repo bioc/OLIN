@@ -2,7 +2,7 @@
 \alias{oin} 
 \title{Optimised intensity-dependent normalisation of two-colour microarrays} 		
 \description{This functions performs optimised  intensity-dependent normalisation (OLIN).}
-\usage{oin(object,alpha=seq(0.1,1,0.1),weights=NA,bg.corr="sub",...)}
+\usage{oin(object,alpha=seq(0.1,1,0.1),weights=NA,bg.corr="subtract",...)}
            \arguments{\item{object}{object of class \dQuote{marrayRaw} or \dQuote{marrayNorm}}
                       \item{alpha}{vector of alpha parameters that are tested in the GCV procedure}
 	              \item{weights}{matrix of weights for  local regression. 
@@ -10,7 +10,7 @@
                           These may be derived from the matrix of  spot quality weights as defined 
                           for \dQuote{marrayRaw} objects.}
 		     \item{bg.corr}{backcorrection method (for \dQuote{marrayRaw} objects)  :
-			\dQuote{none} or \dQuote{sub}(default).}
+			\dQuote{none} or \dQuote{subtract}(default).}
                     \item{...}{Further arguments for \code{locfit} function.}	
 }         
 \details{

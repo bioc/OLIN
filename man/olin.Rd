@@ -5,7 +5,7 @@
 optimised scaled intensity-dependent normalisation (OSLIN).}
 \usage{olin(object,X=NA,Y=NA,alpha=seq(0.1,1,0.1),iter=3,
             scale=c(0.05,0.1,0.5,1,2,10,20),OSLIN=FALSE,weights=NA,
-            genepix=FALSE,bg.corr="sub",...)}
+            genepix=FALSE,bg.corr="subtract",...)}
            \arguments{\item{object}{object of class \dQuote{marrayRaw}
            or \dQuote{marrayNorm} corresponding to a single array or a batch of
            arrays.}
@@ -42,10 +42,10 @@ optimised scaled intensity-dependent normalisation (OSLIN).}
 			\code{weights=maW(object)} is set and  spot
 			quality weights derived by GenePix are stored in
 			\code{maW(object)}.}
-		 \item{bg.corr}{backcorrection method (for \dQuote{marrayRaw} objects)  :
-		   \dQuote{none} for no background correction or
-		   \dQuote{sub}
-		   for background subtraction (default).}		
+		      \item{bg.corr}{backcorrection method (for
+		      \dQuote{marrayRaw} objects)  : \dQuote{none},
+		      \dQuote{subtract}, \dQuote{half},
+		      \dQuote{minimum}, \dQuote{movingmin}, \dQuote{edwards} or \dQuote{normexp}.}		
            \item{...}{Further arguments for \code{locfit} function.}		
 }         
 \details{
@@ -59,7 +59,13 @@ Y-direction compared to smoothing in X-direction.
 The parameter \code{scale} can be of arbitrary value. 
 The choice of model parameters \code{alpha} and \code{scale} for local regression is crucial for the efficiency and 
 quality of normalization. To optimize the model parameters, a general cross-validation procedure (GCV) is applied.
-The arguments \code{alpha} and \code{scale} define the parameters values which are tested in the GCV. OSLIN comprises the OLIN procedure with a subsequent optimized scaling of the range of logged intensity ratios across the spatial dimensions of the array. 
+The arguments \code{alpha} and \code{scale} define the parameters values
+which are tested in the GCV. OSLIN comprises the OLIN procedure with a
+subsequent optimized scaling of the range of logged intensity ratios
+across the spatial dimensions of the array. Details concerning the
+background correction methods can be found in the help page for \code{\link{backgroundCorrect2}}. 
+
+
 Detailed information about OLIN and OSLIN can be found in the package documentation and in the  reference stated below. 
 The weights argument specifies the influence of the single spots on the local regression. To exclude 
 spots being used for the local regression (such as control spots), set their corresponding weight to zero. 

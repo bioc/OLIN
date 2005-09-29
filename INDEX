@@ -2,6 +2,7 @@ anovaint                            One-factorial ANOVA assessing intensity-depe
 anovapin                            One-factorial ANOVA assessing pin-dependent bias
 anovaplate                          One-factorial ANOVA assessing pin-dependent bias
 anovaspatial                        One-factorial ANOVA assessing spatial bias
+backgroundCorrect2		    Background correction
 bas                                 Between-array scaling
 colorbar.mxy                        Generates a colour bar
 colorbar.mxy.abs                    Generates a colour bar

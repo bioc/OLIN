@@ -264,8 +264,7 @@ The OLIN (and OSLIN) are implemented in R by the function \texttt{olin}:
                           Spots can be excluded to be used
                           for the local regression by assigning them to zero.  
                           If the weight matrix include negative values, these will be
-	                   set to zero.
-
+	                   set to zero.\\
                           For the weights, the weight matrix stored 
                           in the \texttt{maW} slot of  \emph{marrayRaw} objects can be used 
                            (\texttt{weights=maW(object)}). Defaults is \texttt{NA} resulting
@@ -280,8 +279,17 @@ The OLIN (and OSLIN) are implemented in R by the function \texttt{olin}:
 			quality weights derived by GenePix are stored in
 			\texttt{maW(object)}.}
             \item[bg.corr] backcorrection method (for \emph{marrayRaw} objects)  :
-			\emph{none} for no background correction or \emph{sub} 
-                          for background subtraction (default).
+			\emph{none} - no background correction, \emph{sub} 
+                          - simple background subtraction (default), 
+            \emph{movingmin} -  background intensities are first averaged over 3x3 grids
+  of neighbouring spots and subsequently substracte, 
+ \emph{minimum} - zero or negative intensities after background
+        correction are set equal to half the minimum of positive
+        corrected intensities, \emph{edwards}-  background correction based on  log-linear
+       interpolation, or \emph{normexp}-  background correction based on fitting
+       procedure. For further details and references, please refer to to the  help page
+of \texttt{backgroundCorrect2} of the \emph{OLIN} package or \texttt{backgroundCorrect} of the \emph{limma} package.
+ 
 
           \item[...] Further arguments passed to the  \texttt{locfit} function.	
       \end{description}
