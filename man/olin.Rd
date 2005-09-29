@@ -4,7 +4,8 @@
 \description{This functions performs optimised local intensity-dependent normalisation (OLIN) and 
 optimised scaled intensity-dependent normalisation (OSLIN).}
 \usage{olin(object,X=NA,Y=NA,alpha=seq(0.1,1,0.1),iter=3,
-            scale=c(0.05,0.1,0.5,1,2,10,20),OSLIN=FALSE,weights=NA,bg.corr="sub",...)}
+            scale=c(0.05,0.1,0.5,1,2,10,20),OSLIN=FALSE,weights=NA,
+            genepix=FALSE,bg.corr="sub",...)}
            \arguments{\item{object}{object of class \dQuote{marrayRaw}
            or \dQuote{marrayNorm} corresponding to a single array or a batch of
            arrays.}
@@ -19,12 +20,28 @@ optimised scaled intensity-dependent normalisation (OSLIN).}
            \item{scale}{vector of scale parameters that are tested in a GCV procedure for spatial regression. This 
              define the amount of smoothing in X-direction with respect to smoothing in Y-direction.}
            \item{OSLIN}{If OSLIN=TRUE, subsequent scaling of the range of M accross the array is performed.}
-	   \item{weights}{matrix of weights for  local regression. 
-                          Rows correspond to the spotted probe sequences, columns to arrays in the batch.
-                          These may be derived from the matrix of  spot quality weights as defined 
-                          for \dQuote{maRaw} objects. Weights can be also used if the normalisation should
+	   \item{weights}{matrix of (non-negative) weights for  local regression (see \code{\link{locfit}}).
+             Rows correspond to the spotted probe sequences, columns to
+             arrays in the batch.
+	     If the weight of the corresponding spot equals zero, the
+	     spot is not used in the normalisation procedures (except
+	     the \code{genepix} argument is set to \code{TRUE}.)
+	     If the weight matrix include negative values, these will be
+	     set to zero. 
+              These weight matrix may be derived from the matrix of  spot quality weights as defined 
+                          for \dQuote{maRaw} objects (\code{weights=maW(object)}.
+			  Weights can be also used if the normalisation should
                           be based on a set of selected genes that are
                           assumed to be not differentially expressed.}
+			\item{genepix}{If \code{genepix} is set to
+			\code{TRUE},  spot weights equal zero or larger are set
+			to one for the local regression whereas negative
+			spot with negative weights are not used   for the
+			regression. The argument \code{genepix} should
+			be set to \code{TRUE}, if
+			\code{weights=maW(object)} is set and  spot
+			quality weights derived by GenePix are stored in
+			\code{maW(object)}.}
 		 \item{bg.corr}{backcorrection method (for \dQuote{marrayRaw} objects)  :
 		   \dQuote{none} for no background correction or
 		   \dQuote{sub}

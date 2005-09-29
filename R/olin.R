@@ -1,5 +1,6 @@
 olin <- function (object, X = NA, Y = NA, alpha = seq(0.1, 1, 0.1), 
-    iter = 3,  scale = c(0.05, 0.1, 0.5, 1, 2,10, 20), OSLIN  = FALSE, weights= NA,bg.corr="sub",...) 
+    iter = 3,  scale = c(0.05, 0.1, 0.5, 1, 2,10, 20), OSLIN  = FALSE, weights= NA,
+                  genepix=FALSE,bg.corr="sub",...) 
 {
     Mn <- matrix(NA, nrow = dim(maM(object))[1], ncol = dim(maM(object))[2])
     Layout <- maLayout(object)
@@ -7,8 +8,14 @@ olin <- function (object, X = NA, Y = NA, alpha = seq(0.1, 1, 0.1),
     ### SET WEIGHTS TO 1 IF NOT PRESENT
     if (missing(weights)) {       
         weights <- matrix(1, nrow=dim(maM(object))[1], ncol=dim(maM(object))[2])
+      }
        # cat("NOTE: Spot weights adjusted to 1\n")
+    if (genepix){
+      weights[weights>=0] <- 1;
+      weights[weights < 0 ] <- 0;
+
     }
+  
 
     ### MAPPING LAYOUT ON X AND Y
     if (is.na(X[1]) | is.na(Y[1])) {

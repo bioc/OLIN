@@ -229,7 +229,7 @@ are based  on iterative local regression and parameter selection by GCV.
 The OLIN (and OSLIN) are implemented in R by the function \texttt{olin}:
 
 \begin{quote}
-\texttt{olin(object,X,Y,alpha,iter,OSLIN,scale,weights,bg.corr,...)}
+\texttt{olin(object,X,Y,alpha,iter,OSLIN,scale,weights,genepix,bg.corr,...)}
 \end{quote}
 
 
@@ -257,9 +257,23 @@ The OLIN (and OSLIN) are implemented in R by the function \texttt{olin}:
                     \texttt{c(0.05,0.1,0.5,1,2,10,20))}.
            \item[weights] Matrix of prior weights of spots for the regression procedures.
                           Spots can be excluded to be used
-                          for the local regression by assigning them to zero. Weights can be stored
-                          in the \texttt{maW} slot of  \emph{marrayRaw} objects. Defaults is NA resulting
+                          for the local regression by assigning them to zero.  
+                          If the weight matrix include negative values, these will be
+	                   set to zero.
+
+                          For the weights, the weight matrix stored 
+                          in the \texttt{maW} slot of  \emph{marrayRaw} objects can be used 
+                           (\texttt{weights=maW(object)}). Defaults is \texttt{NA} resulting
                           in uniform weigths of all spots. 
+	\item[genepix]{If \texttt{genepix} is set to 
+			\texttt{TRUE},  spot weights equal zero or larger are set
+			to one for the local regression whereas negative
+			spot with negative weights are not used   for the
+			regression. The argument \texttt{genepix} should
+			be set to \texttt{TRUE}, if
+			\texttt{weights=maW(object)} is set and  spot
+			quality weights derived by GenePix are stored in
+			\texttt{maW(object)}.}
             \item[bg.corr] backcorrection method (for \emph{marrayRaw} objects)  :
 			\emph{none} for no background correction or \emph{sub} 
                           for background subtraction (default).
@@ -270,7 +284,7 @@ The OLIN (and OSLIN) are implemented in R by the function \texttt{olin}:
 
 For illustration, we apply the OLIN scheme to normalise the third array of the SW480/620 data set. 
 (Note that the function is not restricted to single slide normalisation but normalises all arrays
-in the \emph{marray} object.
+in the given \emph{marray} object.
 
 \begin{Schunk}
 \begin{Sinput}
@@ -836,7 +850,7 @@ removal of location-dependent bias by OLIN (figure~\ref{fdrspatialraw} and \ref{
 
 
 
-\begin{figure}
+\begin{figure}[t]
 \centering
 \includegraphics{OLIN-039}
 \caption{FDR of location-dependent bias for raw data }
