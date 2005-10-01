@@ -4,7 +4,7 @@
 \description{Background correction based on
   \code{\link[limma]{backgroundCorrect}} of the \code{limma} package.}
 
-\usage{backgroundCorrect2(object,method="subtract", offset=0))}
+\usage{backgroundCorrect2(object,method="subtract", offset=0)}
 \arguments{\item{object}{object of class \code{\link[marray]{marrayRaw}}} 
   \item{method}{method for background correction:  \dQuote{none},
   \dQuote{subtract}, \dQuote{half},
