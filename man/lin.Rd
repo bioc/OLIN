@@ -46,7 +46,7 @@ and are spotted accross the whole array.
 \item M.Futschik and T.Crompton (2004) \emph{Model selection and efficiency testing for normalization of cDNA microarray data},
 \strong{Genome Biology}, 5:R60
 }}
-\seealso{\code{\link{maNorm}}, \code{\link{locfit}},  \code{\link{olin}},\code{\link{oin}}}
+\seealso{\code{\link[marray]{maNorm}}, \code{\link[locfit]{locfit}},  \code{\link{olin}},\code{\link{oin}}}
 \examples{
 
 

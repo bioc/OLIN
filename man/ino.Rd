@@ -23,7 +23,7 @@ Larger \code{alpha} values lead to smoother fits.  }
 
 \value{Object of class \dQuote{marrayNorm} with normalised logged ratios}
 \author{Matthias E. Futschik (\url{http://itb.biologie.hu-berlin.de/~futschik})}
-\seealso{\code{\link{maNorm}}, \code{\link{locfit.raw}},\code{\link{olin}}, \code{\link{oin}}, \code{\link{lin}} }
+\seealso{\code{\link[marray]{maNorm}}, \code{\link[locfit]{locfit.raw}},\code{\link{olin}}, \code{\link{oin}}, \code{\link{lin}} }
 \examples{
 
 

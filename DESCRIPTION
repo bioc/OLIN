@@ -1,6 +1,6 @@
 Package: OLIN
-Version: 1.5.5
-Date: 2005-10-01
+Version: 1.5.6
+Date: 2005-10-02
 Title:  Optimized local intensity-dependent normalisation of two-color microarrays 
 Author: Matthias Futschik <m.futschik@biologie.hu-berlin.de>
 Maintainer:  Matthias Futschik <m.futschik@biologie.hu-berlin.de>

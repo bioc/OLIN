@@ -8,9 +8,12 @@
 \arguments{\item{object}{object of class \code{\link[marray]{marrayRaw}}} 
   \item{method}{method for background correction:  \dQuote{none},
   \dQuote{subtract}, \dQuote{half},
-  \dQuote{minimum}, \dQuote{movingmin}, \dQuote{edwards} or \dQuote{normexp}.}
+  \dQuote{minimum}, \dQuote{movingmin}, \dQuote{edwards} or
+  \dQuote{normexp}.
 }
+\item{offset} {numeric value to add to intensities}
 
+}
 
 
 \details{This function is a wrapper function for
@@ -31,7 +34,7 @@ with following methods implemented:
 }
   For further details and references, please refer to its help page. An
   alternative Bayesian model for background correction
-  (\code{\link{kooperberg}}) is also implemented
+  (\code{\link[limma]{kooperberg}}) is also implemented
   in the \code{limma} package.
 }
 

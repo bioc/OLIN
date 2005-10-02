@@ -20,7 +20,7 @@ optimised scaled intensity-dependent normalisation (OSLIN).}
            \item{scale}{vector of scale parameters that are tested in a GCV procedure for spatial regression. This 
              define the amount of smoothing in X-direction with respect to smoothing in Y-direction.}
            \item{OSLIN}{If OSLIN=TRUE, subsequent scaling of the range of M accross the array is performed.}
-	   \item{weights}{matrix of (non-negative) weights for  local regression (see \code{\link{locfit}}).
+	   \item{weights}{matrix of (non-negative) weights for  local regression (see \code{\link[locfit]{locfit}}).
              Rows correspond to the spotted probe sequences, columns to
              arrays in the batch.
 	     If the weight of the corresponding spot equals zero, the
@@ -100,7 +100,7 @@ It is also important to note that OLIN/OSLIN is fairly efficient in removing int
            \url{http://itb.biologie.hu-berlin.de/~futschik/software/R/OLIN}}}
 
        
-\seealso{\code{\link{maNorm}}, \code{\link{locfit}}, \code{\link{gcv}}, \code{\link{oin}},
+\seealso{\code{\link[marray]{maNorm}}, \code{\link[locfit]{locfit}}, \code{\link[locfit]{gcv}}, \code{\link{oin}},
   \code{\link{lin}}}
 \examples{
 

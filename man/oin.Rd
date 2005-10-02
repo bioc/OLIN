@@ -32,7 +32,8 @@ not correct for spatial dye  bias. It can, therefore, be used if the assumption 
 
 \value{Object of class \dQuote{marrayNorm} with normalised logged ratios}
 \author{Matthias E. Futschik (\url{http://itb.biologie.hu-berlin.de/~futschik})}
-\seealso{\code{\link{maNorm}}, \code{\link{locfit}}, \code{\link{gcv}}, \code{\link{olin}}
+\seealso{\code{\link[marray]{maNorm}}, \code{\link[locfit]{locfit}},
+  \code{\link[locfit]{gcv}}, \code{\link{olin}}
 ,\code{\link{lin}}, \code{\link{ino}}}
 \examples{
 

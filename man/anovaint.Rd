@@ -25,7 +25,7 @@ and the response variable is the logged fold-change.}
        ANOVA model.) }
 \author{Matthias E. Futschik  (\url{http://itb.biologie.hu-berlin.de/~futschik})}
 \seealso{\code{\link{anova}}, \code{\link{summary.lm}}, 
-         \code{\link{anovaspatial}}, \code{\link{marrayRaw}}, \code{\link{marrayNorm}}}
+         \code{\link{anovaspatial}}, \code{\link[marray]{marrayRaw}}, \code{\link[marray]{marrayNorm}}}
 \examples{
 
 # CHECK RAW DATA FOR INTENSITY-DEPENDENT BIAS
