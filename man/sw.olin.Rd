@@ -1,5 +1,5 @@
 \name{sw.olin}
-\docTye{data}
+\docType{data}
 \alias{sw.olin}
 \title{Normalised cDNA microarray data of SW480/SW620 experiment}
 \description{The data set \code{sw.olin} is derived from data set \code{sw}

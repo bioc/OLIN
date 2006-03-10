@@ -1,5 +1,5 @@
 \name{sw}
-\docTye{data}
+\docType{data}
 \alias{sw}
 \title{cDNA microarray data of  SW480/SW620 experiment}
 \description{Gene expression in two cancer cell lines, SW480 and SW620, is compared. 

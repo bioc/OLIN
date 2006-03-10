@@ -1,5 +1,5 @@
 \name{sw.xy}
-\docTye{data}
+\docType{data}
 \alias{sw.xy}
 \title{Spatial coordinates of spot locations of  SW480/SW620 experiment }
 \description{The data set \code{sw.xy} contains the x- and y-coordinates of the spots
