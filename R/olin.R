@@ -46,7 +46,9 @@ olin <- function (object, X = NA, Y = NA, alpha = seq(0.1, 1, 0.1),
           M <- maM(object.b)
   } else { if (bg.corr=="none" & class(object) =="marrayRaw"){
         A <- 0.5*(log2(maRf(object)) + log2(maGf(object)))
-        M <- log2(maRf(object)) -  log2(maGf(object)) 
+        M <- log2(maRf(object)) -  log2(maGf(object))
+        M[!is.finite(A)] <- NA
+        A[!is.finite(A)] <- NA
       } else {
         A <- maA(object)
         M <- maM(object)
@@ -116,5 +118,4 @@ olin <- function (object, X = NA, Y = NA, alpha = seq(0.1, 1, 0.1),
         maNormCall = match.call())
 }
 #############################################################################
-
 
