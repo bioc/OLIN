@@ -40,9 +40,9 @@ p.spatial2, fdr.spatial2}).}
 # VISUALISATION
 # sigxy.plot2(sw[,1],FDR$FDRp[[1]],FDR$FDRn[[1]],color.lim=c(-5,5),main="FDR")
 # 
-# MASKING SIGNIFICANT NEIGHBOURHOODS FOR THE FOURTH  ARRAY ONLY
-# thresp <- c(0,0,0,0.01)
-# thresn <- c(0,0,0,0.01)
+# MASKING SIGNIFICANT NEIGHBOURHOODS
+# thresp <- c(0.01,0.01,0.01,0.01)
+# thresn <- c(0.01,0.01,0.01,0.01)
 # sw.masked <- sig.mask(sw,Sp=FDR$FDRp,Sn=FDR$FDRn,thrp=thresp,thrn=thresn)
 # mxy.plot(sw.masked[,4])
 
