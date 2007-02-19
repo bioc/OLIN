@@ -19,8 +19,8 @@ if (class(object)=="marrayRaw"){
 }
 
 if (class(object)=="marrayNorm"){
- maM(object)[Sp < thrp[i],i]  <- NA
- maM(object)[Sn < thrn[i],i]  <- NA
+ maM(object)[Sp[[i]] < thrp[i],i]  <- NA
+ maM(object)[Sn[[i]] < thrn[i],i]  <- NA
 }
 }
 object
