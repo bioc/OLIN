@@ -44,7 +44,7 @@ p.spatial2, fdr.spatial2}).}
 # thresp <- c(0.01,0.01,0.01,0.01)
 # thresn <- c(0.01,0.01,0.01,0.01)
 # sw.masked <- sig.mask(sw,Sp=FDR$FDRp,Sn=FDR$FDRn,thrp=thresp,thrn=thresn)
-# mxy.plot(sw.masked[,4])
+# mxy.plot(sw.masked[,4]) # plot masked data for array 4
 
 
 
