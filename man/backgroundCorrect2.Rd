@@ -11,7 +11,7 @@
   \dQuote{minimum}, \dQuote{movingmin}, \dQuote{edwards} or
   \dQuote{normexp}.
 }
-\item{offset} {numeric value to add to intensities}
+\item{offset}{numeric value to add to intensities}
 
 }
 
