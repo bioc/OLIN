@@ -34,4 +34,3 @@ sw,
 sw.olin,                            
 sw.xy,                               
 v2m)                                
-import( methods, stats, locfit, Biobase, marray )
