@@ -1,6 +1,6 @@
 \name{anovaspatial}
 \alias{anovaspatial}
-\title{One-factorial ANOVA assessing spatial bias}}
+\title{One-factorial ANOVA assessing spatial bias}
 \description{This function performs an one-factorial analysis of variance to test for spatial bias 
 for a single array. The predictor variable is the average logged intensity of both channels
 and the response variable is the logged fold-change.}

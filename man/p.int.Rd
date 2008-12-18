@@ -16,10 +16,6 @@ by (adjusted) p-values.}
            \item{p.adjust.method}{method for adjusting p-values due to multiple testing regime. The available
                  methods are \dQuote{none}, \dQuote{bonferroni},  \dQuote{holm}, \dQuote{hochberg},
                  \dQuote{hommel} and \dQuote{fdr}.  See also \code{\link{p.adjust}}} }
-          }
-
-          }
-
 
 
 \details{The function \code{p.int} assesses the significance of  intensity-dependent bias using a permutation test.

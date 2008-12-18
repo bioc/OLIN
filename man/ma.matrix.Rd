@@ -19,7 +19,7 @@ window. This procedure defines a local regression of zeroth order.
 }
 \value{Matrix with average values of matrix \code{X}. }
 \author{Matthias E. Futschik (\url{http://itb.biologie.hu-berlin.de/~futschik})}
-\seealso{\code{ma.vector}}}
+\seealso{\code{ma.vector}}
 \examples{
 
 ### LOADING DATA

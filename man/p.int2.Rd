@@ -15,9 +15,6 @@ by (adjusted) p-values.}
            \item{p.adjust.method}{method for adjusting p-values due to multiple testing regime. The available
                  methods are \dQuote{none}, \dQuote{bonferroni},  \dQuote{holm}, \dQuote{hochberg},
                  \dQuote{hommel} and \dQuote{fdr}.  See also \code{\link{p.adjust}}} }
-          }
-
-          }
 
 
 

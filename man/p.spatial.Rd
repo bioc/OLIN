@@ -13,8 +13,8 @@ by (adjusted) p-values derived in one-sided permutation test.}
             \item{av}{averaging of \code{M} within neighbourhood by \emph{mean} or \emph{median} (default)}      
            \item{p.adjust.method}{method for adjusting p-values due to multiple testing regime. The available
                  methods are \dQuote{none}, \dQuote{bonferroni},  \dQuote{holm}, \dQuote{hochberg},
-                 \dQuote{hommel} and \dQuote{fdr}.  See also \code{\link{p.adjust}}.} }
-}
+                 \dQuote{hommel} and \dQuote{fdr}.  See also \code{\link{p.adjust}}.}}
+
 \details{The function \code{p.spatial} assesses the significance of spatial bias using an one-sided random 
            permutation test.
           The null hypothesis states random spotting i.e. the independence of log ratio \code{M} 
@@ -69,7 +69,7 @@ by (adjusted) p-values derived in one-sided permutation test.}
 }
 
 
-}
+
 \keyword{nonparametric}
 \keyword{univar}
 \keyword{htest}

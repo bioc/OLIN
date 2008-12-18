@@ -30,7 +30,7 @@ points(A,Mav,col="red")
 }
 
 
-}
+
 \keyword{utilities}
 \keyword{regression}
 

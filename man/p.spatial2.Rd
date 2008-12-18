@@ -14,7 +14,6 @@ by (adjusted) p-values derived in one-sided permutation test.}
            \item{p.adjust.method}{method for adjusting p-values due to multiple testing regime. The available
                  methods are \dQuote{none}, \dQuote{bonferroni},  \dQuote{holm}, \dQuote{hochberg},
                  \dQuote{hommel} and \dQuote{fdr}.  See also \code{\link{p.adjust}}.} }
-}
 \details{ The function \code{p.spatial2.Rd} is basically the same as  \code{p.spatial},
           but differs in its input and output formats. Details about the functionality  can be found
           at  \code{\link{p.spatial}}.
@@ -46,7 +45,7 @@ by (adjusted) p-values derived in one-sided permutation test.}
 }
 
 
-}
+
 \keyword{nonparametric}
 \keyword{univar}
 \keyword{htest}

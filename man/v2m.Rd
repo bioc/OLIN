@@ -29,7 +29,7 @@ it produces a 2D-plot.}
 
 \value{ A 2D-matrix with \code{(Ngc*Nsc)} columns and \code{(Ngr*Nsr)} is produced. This matrix represents the spatial
         distribution of the values of vector \code{V} given the print-layout. }
-\author{Matthias E. Futschik, \url{http://itb.biologie.hu-berlin.de/~futschik}}}
+\author{Matthias E. Futschik, \url{http://itb.biologie.hu-berlin.de/~futschik}}
 \seealso{\code{\link{mxy.plot}}, \code{\link{m2v}}, \code{\link[marray]{marrayRaw}}}
 \examples{
 
@@ -43,7 +43,7 @@ M <- v2m(maM(sw.olin)[,1],Ngc=maNgc(sw.olin),Ngr=maNgr(sw.olin),
 V <- m2v(M,Ngc=maNgc(sw.olin),Ngr=maNgr(sw.olin),
              Nsc=maNsc(sw.olin),Nsr=maNsr(sw.olin),visu=TRUE)
 }
-}
+
 \keyword{manip}
 
 
