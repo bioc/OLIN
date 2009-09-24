@@ -2,10 +2,10 @@
 \alias{backgroundCorrect2}
 \title{Background correction}
 \description{Background correction based on
-  \code{\link[limma]{backgroundCorrect}} of the \code{limma} package.}
+  \code{\link[limma:backgroundcorrect]{backgroundCorrect}} of the \code{limma} package.}
 
 \usage{backgroundCorrect2(object,method="subtract", offset=0)}
-\arguments{\item{object}{object of class \code{\link[marray]{marrayRaw}}} 
+\arguments{\item{object}{object of class \code{\link[marray:marrayRaw-class]{marrayRaw}}} 
   \item{method}{method for background correction:  \dQuote{none},
   \dQuote{subtract}, \dQuote{half},
   \dQuote{minimum}, \dQuote{movingmin}, \dQuote{edwards} or
@@ -17,7 +17,7 @@
 
 
 \details{This function is a wrapper function for
-\code{\link[limma]{backgroundCorrect}}
+\code{\link[limma:backgroundcorrect]{backgroundCorrect}}
 with following methods implemented:
 \itemize{
   \item \dQuote{none}: no background correction
@@ -42,7 +42,7 @@ with following methods implemented:
 
 \author{Matthias Futschik}
 
-\seealso{\code{\link[limma]{backgroundCorrect}},\code{\link[limma]{kooperberg}}}
+\seealso{\code{\link[limma:backgroundcorrect]{backgroundCorrect}},\code{\link[limma:kooperberg]{kooperberg}}}
 
 \examples{
 

@@ -30,7 +30,7 @@ it produces a 2D-plot.}
 \value{ A 2D-matrix with \code{(Ngc*Nsc)} columns and \code{(Ngr*Nsr)} is produced. This matrix represents the spatial
         distribution of the values of vector \code{V} given the print-layout. }
 \author{Matthias E. Futschik, \url{http://itb.biologie.hu-berlin.de/~futschik}}
-\seealso{\code{\link{mxy.plot}}, \code{\link{m2v}}, \code{\link[marray]{marrayRaw}}}
+\seealso{\code{\link{mxy.plot}}, \code{\link{m2v}}, \code{\link[marray:marrayRaw-class]{marrayRaw}}}
 \examples{
 
 # LOADING DATA NOT-NORMALISED

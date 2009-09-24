@@ -29,7 +29,7 @@
          of the two channels, see function \code{fgbg.visu}.}
 
 \author{Matthias E. Futschik (\url{http://itb.biologie.hu-berlin.de/~futschik})}
-\seealso{\code{\link{v2m}}, \code{\link{m2v}}, \code{\link{fgbg.visu}}, \code{\link{image}}, \code{\link[marray]{marrayRaw}}}
+\seealso{\code{\link{v2m}}, \code{\link{m2v}}, \code{\link{fgbg.visu}}, \code{\link{image}}, \code{\link[marray:marrayRaw-class]{marrayRaw}}}
 \examples{
 # LOADING DATA
 data(sw)

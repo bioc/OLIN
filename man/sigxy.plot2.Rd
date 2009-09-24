@@ -19,7 +19,7 @@
 \note{This function will be merged with \code{sigxy.plot} in future versions.}
 \author{Matthias E. Futschik (\url{http://itb.biologie.hu-berlin.de/~futschik})}
 \seealso{\code{\link{colorbar.sig}}, \code{\link{sigxy.plot}},
-\code{\code{\link{sigxy.plot}},\link{fdr.spatial2}}, \code{\link{p.spatial2}}, \code{\link{image}}}
+\code{\link{sigxy.plot},\link{fdr.spatial2}}, \code{\link{p.spatial2}}, \code{\link{image}}}
 \examples{
 
 # To run these examples, "un-comment" them!

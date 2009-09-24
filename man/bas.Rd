@@ -45,7 +45,7 @@ so that it has the columns have same ordering as for the  original matrix X.
 \author{Matthias E. Futschik  (\url{http://itb.biologie.hu-berlin.de/~futschik})}
 \references{Bolstad et al., A comparison of normalization methods for high density oligonucleotide array data based on variance and bias,
 \emph{Bioinformatics}, 19: 185-193, 2003}
-\seealso{\code{\link[array]{marrayNorm}},\code{\link{var}},\code{\link{mad}}}
+\seealso{\code{\link[marray:marrayNorm-class]{marrayNorm}},\code{\link{var}},\code{\link{mad}}}
 
 \examples{
 

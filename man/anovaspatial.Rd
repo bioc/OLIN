@@ -30,8 +30,8 @@ and the response variable is the logged fold-change.}
        can be  visualised.}
 \author{Matthias E. Futschik (\url{http://itb.biologie.hu-berlin.de/~futschik})}
 \seealso{\code{\link{anova}}, \code{\link{summary.lm}},
-  \code{\link{anovaint}}, \code{\link[marray]{marrayRaw}},
-  \code{\link[marray]{marrayNorm}}}
+  \code{\link{anovaint}}, \code{\link[marray:marrayRaw-class]{marrayRaw}},
+  \code{\link[marray:marrayNorm-class]{marrayNorm}}}
 
 \examples{
 # CHECK RAW DATA FOR SPATIAL BIAS

@@ -20,7 +20,7 @@ after the application of significance test for intenstiy- and location dependent
 p.spatial2, fdr.spatial2}).}
 
 \author{Matthias E. Futschik (\url{http://itb.biologie.hu-berlin.de/~futschik})}
-\seealso{\code{\link{sigint.plot}}, \code{\link{fdr.int}},  \code{\link{p.int}}, \code{\link{sigxy.plot}},
+\seealso{\code{\link{sigint.plot}}, \code{\link{fdr.int}}, \code{\link{p.int}}, \code{\link{sigxy.plot}},
 \code{\link{fdr.spatial}},  \code{\link{p.spatial}}}
 
 
