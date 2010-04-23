@@ -1,3 +1,13 @@
+importMethodsFrom(marray, image, maA, maGb, "maGb<-", maGf, "maGf<-",
+                  maGnames, maLayout, maM, "maM<-", maNgc, maNgr,
+                  maNotes, maNsc, maNsr, maPlate, maRb, "maRb<-", maRf,
+                  "maRf<-", maTargets, points)
+importFrom(graphics, axis, layout, par, plot)
+importFrom(grDevices, rgb)
+importFrom(limma, backgroundCorrect)
+importFrom(methods, as, new)
+importFrom(stats, lm, mad, median, p.adjust, var)
+
 export(
 anovaint,                            
 anovapin,         
