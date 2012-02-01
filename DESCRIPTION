@@ -1,10 +1,10 @@
 Package: OLIN
-Version: 1.33.0
+Version: 1.33.1
 Date: 2010-12-28
 Title:  Optimized local intensity-dependent normalisation of two-color microarrays 
 Author: Matthias Futschik <mfutschik@ualg.pt>
 Maintainer:  Matthias Futschik <mfutschik@ualg.pt>
-Depends: R (>= 2.5.0), methods, locfit, marray
+Depends: R (>= 2.10), methods, locfit, marray
 Imports: graphics, grDevices, limma, marray, methods, stats
 Suggests: convert
 Description: Functions for normalisation of two-color microarrays by optimised local regression and for detection of artefacts in microarray data
