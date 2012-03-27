@@ -1,5 +1,5 @@
 colorbar.mxy <- function (color.lim, col = c(rgb(0, (100:0)/100, 0), rgb(0, 0, 
-    0), rgb((1:100)/100, g = 0, b = 0)), ylab = "", ylablim = FALSE) 
+    0), rgb((1:100)/100, green = 0, blue = 0)), ylab = "", ylablim = FALSE) 
 {
     par(xaxt = "n")
     par(yaxt = "n")

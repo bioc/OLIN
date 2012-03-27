@@ -28,8 +28,8 @@ anovaspatial <- function (obj, index, xN = 5, yN = 5, visu = FALSE)
             ptmp[tmp2 == ii] <- -log10(pvalues[[ii]])
         }
         mat <- matrix(1:2, ncol = 2, nrow = 1, byrow = TRUE)
-        l <- layout(mat, width = c(3, 1))
-        colo <- rgb((1:100)/100, g = 0, b = 0)
+        l <- layout(mat, widths = c(3, 1))
+        colo <- rgb((1:100)/100, green = 0, blue = 0)
         image(1:dim(M)[[2]], 1:dim(M)[[1]], t(matrix(ptmp, ncol = dim(M)[[2]])), 
             zlim = c(0, max(ptmp)), main = "Significance based on t-test", 
             xlab = "X", ylab = "Y", col = colo)

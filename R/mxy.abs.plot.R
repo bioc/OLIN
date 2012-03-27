@@ -23,10 +23,10 @@ mxy.abs.plot <- function (V, Ngc, Ngr, Nsc, Nsr, color.lim = c(0, 1), color = "r
 
     #### COLOR PALETTE
     if (color == "green") {
-        colo <- c(rgb(0, 0, 0), rgb(g = (1:100)/100, r = 0, b = 0))
+        colo <- c(rgb(0, 0, 0), rgb(green = (1:100)/100, red = 0, blue = 0))
     }
     else {
-        colo <- c(rgb(0, 0, 0), rgb((1:100)/100, g = 0, b = 0))
+        colo <- c(rgb(0, 0, 0), rgb((1:100)/100, green = 0, blue = 0))
     }
    
     ### VISUALISATION 
@@ -34,7 +34,7 @@ mxy.abs.plot <- function (V, Ngc, Ngr, Nsc, Nsr, color.lim = c(0, 1), color = "r
     smatrixtmp[smatrixtmp < color.lim[1]] <- color.lim[1]
     smatrixtmp[smatrixtmp > color.lim[2]] <- color.lim[2]
     mat <- matrix(1:2, ncol = 2, nrow = 1, byrow = TRUE)
-    l <- layout(mat, width = c(5, 1))
+    l <- layout(mat, widths = c(5, 1))
     par(xaxt = "s")
     par(yaxt = "s")
     par(mar = c(4, 4, 5, 2))

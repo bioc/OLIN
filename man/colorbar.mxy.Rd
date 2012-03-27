@@ -3,7 +3,7 @@
 \title{Generates a colour bar}
 \description{Generates colour bar for MXY plots}
 \usage{colorbar.mxy(color.lim,
-       col=c(rgb(0,(100:0)/100,0),rgb(0,0,0),rgb((1:100)/100,g=0,b=0)),
+       col=c(rgb(0,(100:0)/100,0),rgb(0,0,0),rgb((1:100)/100,green=0,blue=0)),
        ylab="",ylablim=FALSE)}
 \arguments{\item{color.lim}{limits for colour range}
 	\item{col}{colour palette to be used}
@@ -24,7 +24,7 @@ data(sw)
 
 # GENERATING LAYOUT
 mat <- matrix(1:2,ncol=2,nrow=1,byrow=TRUE)
-l   <- layout(mat,width=c(5,1))
+l   <- layout(mat,widths=c(5,1))
   
 # CHOOSING LIMITS OF COLOUR RANGE
 color.lim <- c(-2,2)

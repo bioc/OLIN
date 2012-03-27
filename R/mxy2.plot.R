@@ -65,12 +65,12 @@ mxy2.plot <- function (V, X, Y, Ngc, Ngr, Nsc, Nsr, color.lim = c(-1, 1),
 
     #### VISUALISATION 
     colo <- c(rgb(0, (100:0)/100, 0), rgb(0, 0, 0), rgb((1:100)/100, 
-        g = 0, b = 0))
+        green = 0, blue = 0))
     smatrixtmp <- smatrix
     smatrixtmp[smatrixtmp < color.lim[1]] <- color.lim[1]
     smatrixtmp[smatrixtmp > color.lim[2]] <- color.lim[2]
     mat <- matrix(1:2, ncol = 2, nrow = 1, byrow = TRUE)
-    l <- layout(mat, width = c(5, 1))
+    l <- layout(mat, widths = c(5, 1))
     par(xaxt = "s")
     par(yaxt = "s")
     par(mar = c(4, 4, 5, 2))

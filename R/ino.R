@@ -27,7 +27,7 @@ ino <- function(object, alpha=0.3, weights= NA,bg.corr="subtract",...){
       
         lo <- locfit(Mtmp ~ Atmp, alpha = alpha, weights=weights[,i],...)
         Atmp[is.na(A[, i])] <- 0
-        Mtmp <- Mtmp - predict.locfit(lo, data.frame(Atmp = Atmp))
+        Mtmp <- Mtmp - predict(lo, data.frame(Atmp = Atmp))
         Mn[, i] <- Mtmp
     }
   

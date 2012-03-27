@@ -3,7 +3,7 @@ colorbar.sig <- function (color.lim = c(-3, 3))
     opo <- par(no.readonly = TRUE)
     par(mar = c(4, 1, 5, 3))
     colo <- c(rgb(0, (100:0)/100, 0), rgb(0, 0, 0), rgb((1:100)/100, 
-        g = 0, b = 0))
+        green = 0, blue = 0))
     ticks <- seq(color.lim[1], color.lim[2], 1)
     labels <- -(abs(ticks))
     labels <- as.character(labels)

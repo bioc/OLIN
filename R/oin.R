@@ -32,7 +32,7 @@ oin <- function (object,alpha = seq(0.1, 1, 0.1),weights= NA, bg.corr="subtract"
             alphaopt <- x[which(x[, 2] == min(x[, 2])), 3]
             lo <- locfit(Mtmp ~ Atmp, alpha = alphaopt, weights=weights[,i],...)
             Atmp[is.na(A[, i])] <- 0
-            Mtmp <- Mtmp - predict.locfit(lo, data.frame(Atmp = Atmp))
+            Mtmp <- Mtmp - predict(lo, data.frame(Atmp = Atmp))
             Mtmp[is.na(A[, i])] <- NA
            
         

@@ -6,10 +6,10 @@ colorbar.mxy.abs <- function (color.lim, color = "red", ylab = "", ylablim = FAL
 
     ### COLOR PALETTE 
     if (color == "green") {
-        col <- c(rgb(0, 0, 0), rgb(g = (1:100)/100, r = 0, b = 0))
+        col <- c(rgb(0, 0, 0), rgb(green = (1:100)/100, red= 0, blue = 0))
     }
     else {
-        col <- c(rgb(0, 0, 0), rgb((1:100)/100, g = 0, b = 0))
+        col <- c(rgb(0, 0, 0), rgb((1:100)/100, green = 0, blue = 0))
     }
     ###  PLOTTING
     seqo <- seq(color.lim[1], color.lim[2], length = 200)

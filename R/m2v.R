@@ -5,7 +5,7 @@ m2v <- function (M, Ngc, Ngr, Nsc, Nsr, visu = FALSE, color.lim = c(-1,
     #### VISUALISATION 
     if (visu) {
         colo <- c(rgb(0, (100:0)/100, 0), rgb(0, 0, 0), rgb((1:100)/100, 
-            g = 0, b = 0))
+            green = 0, blue = 0))
         stmp <- smatrix
         stmp[stmp < color.lim[1]] <- color.lim[1]
         stmp[stmp > color.lim[2]] <- color.lim[2]

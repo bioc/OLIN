@@ -70,7 +70,7 @@ olin <- function (object, X = NA, Y = NA, alpha = seq(0.1, 1, 0.1),
             alphaopt <- alpha[(which(min(CVA) == CVA))]
             lo <- locfit(Mtmp ~ Atmp, alpha = alphaopt, weights=weights[,i],...)
             Atmp[is.na(A[, i])] <- 0
-            Mtmp <- Mtmp - predict.locfit(lo, data.frame(Atmp = Atmp))
+            Mtmp <- Mtmp - predict(lo, data.frame(Atmp = Atmp))
             Mtmp[is.na(A[, i])] <- NA
             CVA <- matrix(NA, ncol = length(scale), nrow = length(alpha))
             for (j in 1:length(alpha)) {
@@ -82,7 +82,7 @@ olin <- function (object, X = NA, Y = NA, alpha = seq(0.1, 1, 0.1),
             alphaopt <- alpha[((which(min(CVA) == CVA)) - 1)%%length(alpha) + 1]
             scaleopt <- scale[(which(min(CVA) == CVA) - 1)%/%length(alpha) +  1]
             lo <- locfit(Mtmp ~ Xtmp * Ytmp,  weights=weights[,i],alpha = alphaopt,scale = c(1, scaleopt),...)
-            Mtmp <- Mtmp - predict.locfit(lo, data.frame(Xtmp = Xtmp,Ytmp = Ytmp))
+            Mtmp <- Mtmp - predict(lo, data.frame(Xtmp = Xtmp,Ytmp = Ytmp))
             Mtmp[is.na(A[, i])] <- NA
         }
         Mn[, i] <- Mtmp
@@ -104,7 +104,7 @@ olin <- function (object, X = NA, Y = NA, alpha = seq(0.1, 1, 0.1),
                 1]
             lo <- locfit(absMtmp ~ Xtmp + Ytmp, weights=weights[,i], alpha = alphaoptS, 
                 scale = scaleoptS,...)
-            absMp <- predict.locfit(lo, data.frame(Xtmp = Xtmp, 
+            absMp <- predict(lo, data.frame(Xtmp = Xtmp, 
                 Ytmp = Ytmp))
             Mtmp <- (Mtmp/absMp) * sqrt(var(Mtmp, na.rm = TRUE)/var((Mtmp/absMp), 
                 na.rm = TRUE))

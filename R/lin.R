@@ -49,13 +49,13 @@ lin <- function (object, X = NA, Y = NA, alpha  = 0.3, iter=2, scale = TRUE, wei
        for (ii in 1:iter) {
             lo <- locfit(Mtmp ~ Atmp, alpha = alpha, weights=weights[,i],...)
             Atmp[is.na(A[, i])] <- 0
-            Mtmp <- Mtmp - predict.locfit(lo, data.frame(Atmp = Atmp))
+            Mtmp <- Mtmp - predict(lo, data.frame(Atmp = Atmp))
             Mtmp[is.na(maA(object)[, i])] <- NA
             
             lo <- locfit(Mtmp ~ Xtmp * Ytmp,  weights=weights[,i],alpha = alpha, 
                 scale = TRUE, ...)
 
-            Mtmp <- Mtmp - predict.locfit(lo, data.frame(Xtmp = Xtmp, 
+            Mtmp <- Mtmp - predict(lo, data.frame(Xtmp = Xtmp, 
                 Ytmp = Ytmp))
 
             Mtmp[is.na(A[, i])] <- NA

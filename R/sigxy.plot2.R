@@ -6,7 +6,7 @@ sigxy.plot2 <- function (object,Sp,Sn, color.lim = c(-3, 3), ...)
     
     opo <- par(no.readonly = TRUE)
     col.sig <- c(rgb(0, (100:0)/100, 0), rgb(0, 0, 0), rgb((1:100)/100, 
-        g = 0, b = 0))
+        green = 0, blue = 0))
    
     ### FUSING SIGNIFICANCE VECTORS TO MATRIX 
     Mtmp1 <- -log10(Sp)
@@ -26,7 +26,7 @@ sigxy.plot2 <- function (object,Sp,Sn, color.lim = c(-3, 3), ...)
    
     #### VISUALISATION
     mat <- matrix(1:2, ncol = 2, nrow = 1, byrow = TRUE)
-    l <- layout(mat, width = c(5.5, 1))
+    l <- layout(mat, widths = c(5.5, 1))
     image(1:dim(Mtmp1)[[2]], 1:dim(Mtmp1)[[1]], t(Mtmp1), xlab = "X", 
         ylab = "Y", col = col.sig, zlim = color.lim, ...)
     colorbar.sig(color.lim)
