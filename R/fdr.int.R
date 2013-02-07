@@ -1,6 +1,6 @@
 fdr.int <- function (A, M, delta = 50, N = 100, av = "median") 
 {
-    XavP <- real(length(M) * N)
+    XavP <- double(length(M) * N)
 
     ### GENERATING BACKGROUND DISTRIBUTION 
     for (i in 1:N) {
@@ -18,20 +18,20 @@ fdr.int <- function (A, M, delta = 50, N = 100, av = "median")
     ro <- o[rank(Xav)]
     XavS <- sort(Xav)
     XavS.l <- length(XavS)
-    XN <- real(length = length(XavS)) + NA
+    XN <- double(length = length(XavS)) + NA
     for (i in 1:XavS.l) {
         XN[i] <- sum(XavP >= XavS[i], na.rm = TRUE)
     }
     XN <- XN/(XavP.l/XavS.l)
 
     ### CALCULATION OF FALSE POSITIVES RATES
-    pFDR <- real(length = length(Xav)) + NA
+    pFDR <- double(length = length(Xav)) + NA
     for (i in (delta + 1):XavS.l) {
         pFDR[XavS.l - i + 1] <- XN[XavS.l - i + 1]/(XN[XavS.l - 
             i + 1] + i)
     }
     pFDR[pFDR == 0] <- 1/(XavS.l * N)
-    nFDR <- real(length = length(Xav)) + NA
+    nFDR <- double(length = length(Xav)) + NA
     for (i in 1:XavS.l) {
         nFDR[i] <- (XavS.l - XN[i])/((XavS.l - XN[i]) + i)
     }

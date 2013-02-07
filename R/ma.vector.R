@@ -4,7 +4,7 @@ ma.vector <- function (A, M, av = "median", delta = 50)
     Mo <- M[order(A)]
     index <- c(1:length(A))
     Io <- index[order(A)]
-    Maverage <- real(length(A))
+    Maverage <- double(length(A))
     if (av == "mean") {
         for (i in (delta + 1):(length(A) - delta)) {
             Maverage[i] <- mean(Mo[c((i - delta):(i - 1), (i + 

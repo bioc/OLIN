@@ -62,7 +62,7 @@ olin <- function (object, X = NA, Y = NA, alpha = seq(0.1, 1, 0.1),
         Mtmp <- M[, i]
         Xtmp <- X[, i]
         Ytmp <- Y[, i]
-        CVA <- real(length = length(alpha)) + NA
+        CVA <- double(length = length(alpha)) + NA
         for (ii in 1:iter) {
             for (j in 1:length(alpha)) {
             CVA <- gcv(Mtmp ~ Atmp, data = data.frame(Mtmp,Atmp), alpha = alpha[j],  weights=weights[,i],...)[4]

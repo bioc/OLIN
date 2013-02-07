@@ -20,7 +20,7 @@ fdr.spatial2 <- function (object, delta = 2, N = 100, av = "median", edgeNA = FA
     
 
 
-    XavP <- real(length(X) * N) + NA
+    XavP <- double(length(X) * N) + NA
 
     ### GENERATING EMPIRICAL BACKGROUND DISTRIBUTION BASED ON RANDOM PERMUTATION 
     for (i in 1:N) {
@@ -37,7 +37,7 @@ fdr.spatial2 <- function (object, delta = 2, N = 100, av = "median", edgeNA = FA
     ro <- o[rank(Xav)]
     XavS <- sort(Xav)
     XavS.l <- length(XavS)
-    XN <- real(length = length(XavS)) + NA
+    XN <- double(length = length(XavS)) + NA
 
     #### COMPARINING STATISTIC OF ORIGINAL DATA WITH EMPIRICAL BACKGROUND DISTRIBUTION 
     for (i in 1:XavS.l) {
@@ -47,13 +47,13 @@ fdr.spatial2 <- function (object, delta = 2, N = 100, av = "median", edgeNA = FA
 
 
     #### DETERMINING FALSE DISCOVERY RATES
-    pFDR <- real(length = length(Xav)) + NA
+    pFDR <- double(length = length(Xav)) + NA
     for (i in 1:XavS.l) {
         pFDR[XavS.l - i + 1] <- XN[XavS.l - i + 1]/(XN[XavS.l - 
             i + 1] + i)
     }
     pFDR[pFDR == 0] <- 1/(XavS.l * N)
-    nFDR <- real(length = length(Xav)) + NA
+    nFDR <- double(length = length(Xav)) + NA
     for (i in 1:XavS.l) {
         nFDR[i] <- (XavS.l - XN[i])/((XavS.l - XN[i]) + i)
     }

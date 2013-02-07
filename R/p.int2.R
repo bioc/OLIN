@@ -18,7 +18,7 @@ p.int2 <- function (object, delta = 50, N = -1, av = "median", p.adjust.method =
     if (N < 0) {
         N <- 100 * length(A)
     }
-    MavP <- real(N)
+    MavP <- double(N)
 
     #### GERNERATING EMPIRICAL DISTRIBUTION 
     if (av == "mean") {
@@ -34,14 +34,14 @@ p.int2 <- function (object, delta = 50, N = -1, av = "median", p.adjust.method =
     #### STATISTIC FOR ORIGINAL DATA
     Mav <- ma.vector(A, M, delta = delta, av = av)
     Mav.l <- length(Mav)
-    pP <- real(length = length(A)) + NA
+    pP <- double(length = length(A)) + NA
     MavP.l <- length(MavP)
 
     #### DETERMINING P-VALUES
     for (i in 1:Mav.l) {
         pP[i] <- sum(MavP >= Mav[i], na.rm = TRUE)/MavP.l
     }
-    nP <- real(length = length(M)) + NA
+    nP <- double(length = length(M)) + NA
     for (i in 1:Mav.l) {
         nP[i] <- sum(MavP <= Mav[i], na.rm = TRUE)/MavP.l
     }

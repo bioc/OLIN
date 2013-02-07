@@ -3,7 +3,7 @@ p.spatial <- function (X, delta = 2, N = -1, av = "median", p.adjust.method = "n
     if (N < 0) {
         N <- 100 * dim(X)[[1]] * dim(X)[[2]]
     }
-    XavP <- real(N)
+    XavP <- double(N)
 
     #### GENERATING EMPIRICAL DISTRIBUTION 
     if (av == "mean") {
@@ -22,12 +22,12 @@ p.spatial <- function (X, delta = 2, N = -1, av = "median", p.adjust.method = "n
     Xav.l <- length(Xav)
    
     #### DETERMINING SIGNIFICANCE
-    pP <- real(length = length(as.vector(X))) + NA
+    pP <- double(length = length(as.vector(X))) + NA
     XavP.l <- length(XavP)
     for (i in 1:Xav.l) {
         pP[i] <- sum(XavP >= Xav[i], na.rm = TRUE)/XavP.l
     }
-    nP <- real(length = length(as.vector(X))) + NA
+    nP <- double(length = length(as.vector(X))) + NA
     for (i in 1:Xav.l) {
         nP[i] <- sum(XavP <= Xav[i], na.rm = TRUE)/XavP.l
     }
