@@ -33,8 +33,7 @@ and model selection. Both  schemes aim to correct for intensity- and location-de
 Additionally, several procedures to assess the efficiencies of normalisation are implemented
 in the package. 
 
-A graphical user interface for OLIN has been implemented in the package OLINgui, that
-can be downloaded from the OLIN webpage (\textit{http://itb.biologie.hu-berlin.de/$\sim$futschik/software/R/OLIN/index.html}).
+A graphical user interface for OLIN has been implemented in the package OLINgui, that is included in the OLINgui package available at the Bioconductor repository.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%
@@ -826,6 +825,8 @@ Finally, a second set of functions  (\texttt{fdr.int2, p.int2, fdr.spatial2, p.s
 %BIBLIOGRAPHY
 \begin{thebibliography}{99}
 \bibitem{toni} M.Futschik and T. Crompton (2004) Model selection and efficiency testing for normalisation of cDNA microarray data, \emph{Genome Biology}, 5:R60  
+
+\bibitem{toni2}M.E. Futschik and T. Crompton (2005) OLIN: optimized normalization, visualization and quality testing of two-channel microarray data, Bioinformatics, 21(8):1724-6 
 \bibitem{genomeletters} M. Futschik, A.Jeffs, S.Pattison, N.Kasabov, M.Sullivan, A.Merrie and A.Reeve (2002) Gene expression profiling of metastatic and non-metastatic colorectal cancer cell-lines,  \emph{Genome Letters}, 1(1) , 26-34
 \bibitem{loader} C. Loader (1999) Local regression and likelihood, Springer, New York
 \bibitem{cleveland} WS Cleveland (1979) Robust locally weighted regression and smoothing scatterplots,
