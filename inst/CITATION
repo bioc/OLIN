@@ -1,0 +1,19 @@
+bibentry(bibtype = "Article",
+         title = " Model selection and efficiency testing for normalisation of cDNA microarray data",
+         author = c(person("Matthias", "Futschik"),
+                    person("Toni", "Crompton")),
+         journal = "Genome Biology",
+	number = "5",
+	pages= " R60",         
+         year = "2004",
+         url = "http://olin.sysbiolab.eu")
+
+bibentry(bibtype = "Article",
+         title = "OLIN: optimized normalization, visualization and quality testing of two-channel microarray data",
+         author = c(person("Matthias", "Futschik"),
+                    person("Toni", "Crompton")),
+         journal = "Genome Biology",
+	number = "21(8)",
+	pages= "172-176",         
+         year = "2005",
+         url = "http://olin.sysbiolab.eu")
