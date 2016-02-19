@@ -6,7 +6,7 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage{a4wide}
 \title{Introduction to OLIN package}
-\author{Matthias E. Futschik\\ Institute for Theoretical Biology,  Humboldt-University\\ URL: \textit{http://itb.biologie.hu-berlin.de/$\sim$futschik/software/R/OLIN/index.html}}
+\author{Matthias E. Futschik\\ SysBioLab,  Universidade do Algarve\\ URL: \textit{http://olin.sysbiolab.eu}}
 
 \begin{document}
 \maketitle
