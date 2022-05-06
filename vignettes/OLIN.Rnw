@@ -339,7 +339,7 @@ plot(maA(norm.olin),maM(norm.olin),main="OLIN",pch=".")
 \centering
 <<echo=FALSE,fig=TRUE,height=5,width=5.5>>=
  
- mxy.plot(maM(norm.olin),Ngc=maNgc(norm.olin),Ngr=maNgr(norm.olin),
+mxy.plot(norm.olin,Ngc=maNgc(norm.olin),Ngr=maNgr(norm.olin),
                 Nsc=maNsc(norm.olin),Nsr=maNsr(norm.olin),main="OLIN")
 @
 \caption{MXY-plot of array normalized by  OLIN }
@@ -394,7 +394,7 @@ The variability of log ratios \emph{M} appears to be even across the array.
 <<echo=TRUE,eval=FALSE>>=
 plot(maA(norm.oslin),maM(norm.oslin),main="OSLIN",pch=".")
 
-mxy.plot(maM(norm.oslin),Ngc=maNgc(norm.oslin),Ngr=maNgr(norm.oslin),
+mxy.plot(norm.oslin,Ngc=maNgc(norm.oslin),Ngr=maNgr(norm.oslin),
                 Nsc=maNsc(norm.oslin),Nsr=maNsr(norm.oslin),main="OSLIN")
 
 @
@@ -430,7 +430,7 @@ and are spotted accross the whole array.
 \centering
 <<echo=FALSE,fig=TRUE,height=5,width=5.5>>=
  
- mxy.plot(maM(norm.oslin),Ngc=maNgc(norm.oslin),Ngr=maNgr(norm.oslin),
+ mxy.plot(norm.oslin,Ngc=maNgc(norm.oslin),Ngr=maNgr(norm.oslin),
                 Nsc=maNsc(norm.oslin),Nsr=maNsr(norm.oslin),main="OSLIN")
 @
 \caption{MXY-plot of array normalized by  OSLIN }
